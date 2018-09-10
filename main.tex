@@ -1,0 +1,231 @@
+%!TEX program = pdflatex
+%
+% File: main.tex
+%
+% Title: \titletext
+% Authors:
+
+%
+% \def\asiacrypt{1}
+
+\newif\iffull
+\fullfalse
+
+\def\llncs{0}       % 1 = using llncs
+\def\showoverflow{1}% 1 = show overflows when llncs=1
+\def\setmargin{1}   % 0 = do not set; 1 = set
+% it sets via latex. Insteassd sset via pdf directly
+\def\papertype{0}   % 0 = letter; 1 = a4;
+\def\myfontsize{0}  % 0 = 10pt; 1 = 11pt; 0 is what llncs uses;
+\def\savespace{0}   % 0 = do not save space; 1 = save space
+% use times font
+
+\def\anonymous{0}   % 0 = non-anonymous; 1 = anonymous
+\def\addtoc{0}      % 0 = exclude TOC; 1 = include TOC
+\def\fullversion{1} % 0 = short version; 1 = full version
+\def\submission{0}  % 0 = normal version; 1 = submission version
+
+\def\instplace{0}
+\def\authnotes{0}   % 0 = authnotes off; 1 = authnotes onss
+
+\def\given{:\:}
+\pagestyle{plain}
+
+\ifnum\llncs=1  \ifnum\papertype=0
+\ifnum\myfontsize=0
+\ifnum\showoverflow=1
+\documentclass[twoside,envcountsame,runningheads,draft]{llncs}
+\else
+\documentclass[twoside,envcountsame,runningheads]{llncs}
+\fi
+\else
+\ifnum\showoverflow=1
+\documentclass[11pt,twoside,envcountsame,runningheads,draft]{llncs}
+\else
+\documentclass[11pt,twoside,envcountsame,runningheads]{llncs}
+\fi
+\usepackage[letterpaper,hmargin=1in,vmargin=1in]{geometry}
+\fi
+\else
+\ifnum\myfontsize=0
+\ifnum\showoverflow=1
+\documentclass[a4paper,twoside,envcountsame,runningheads,draft]{llncs}
+\else
+\documentclass[a4paper,twoside,envcountsame,runningheads]{llncs}
+\fi
+\else
+\ifnum\showoverflow=1
+\documentclass[a4paper,11pt,twoside,envcountsame,runningheads,draft]{llncs}
+\else
+\documentclass[a4paper,11pt,twoside,envcountsame,runningheads]{llncs}
+\fi
+\fi
+\fi
+\else
+\ifnum\papertype=0
+\ifnum\myfontsize=0
+\documentclass[twoside]{article}
+\else
+\documentclass[11pt,twoside]{article}
+%\usepackage[letterpaper,hmargin=0.68in,vmargin=0.58in]{geometry}
+\usepackage[letterpaper,hmargin=0.95in,vmargin=0.9in]{geometry}
+\fi
+\else
+\ifnum\myfontsize=0
+\documentclass[a4paper,twoside]{article}
+\else
+\documentclass[11pt,a4paper,twoside]{article}
+\fi
+\fi
+\fi
+
+\iffalse
+%sarah's hacks; comment out as desired
+\usepackage{titlesec}
+\floatsep=3pt plus1pt minus2pt
+%\dblfloatsep=\floatsep
+%\textfloatsep=6pt plus5pt minus2pt
+%\dbltextfloatsep=\textfloatsep
+%\abovecaptionskip=3pt
+\beforetitleunit=6pt plus12pt minus2pt
+%\aftertitleunit=3pt plus3pt minus1pt
+\aftertitleunit=\beforetitleunit
+\titlespacing*\section{0pt}{\beforetitleunit}{\aftertitleunit}
+\titlespacing*\subsection{0pt}{\beforetitleunit}{\aftertitleunit}
+\titlespacing*\subsubsection{0pt}{\beforetitleunit}{\aftertitleunit}
+\titlespacing*\paragraph{0pt}{\beforetitleunit}{1em}
+\fi
+
+
+
+\usepackage{pst-node}
+
+
+\usepackage{xspace,mathrsfs}
+\usepackage{graphicx,rotating}
+%\usepackage{graphicx,pstricks,rotating}
+\ifnum\savespace=1
+\usepackage{times}
+\fi
+
+\usepackage{url}
+%\usepackage{latexsym}
+\usepackage{amscd,amsfonts,amsmath,amssymb}
+
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{multirow,setspace}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+\ifnum\llncs=1
+\usepackage{graphics}
+\else
+\ifnum\anonymous=0
+\usepackage[%dvips,
+pdftitle={},
+pdfauthor={},
+pdfpagelabels=true, linktocpage=true,
+pagebackref%,% references from biblio to pages where cited
+%pdftex
+]{hyperref}
+\else
+\usepackage[%dvips,
+%pdftex,
+pdftitle={},    pdfauthor={}, 		pdfpagelabels=true,
+linktocpage=true]{hyperref}
+\fi
+\fi
+
+%%\usepackage[hyphens]{url}
+%%\usepackage{latexsym}
+%%\usepackage{amscd,amsmath}
+%%\usepackage{amsfonts}
+%%\usepackage{color}
+%%\usepackage{float}
+%%\usepackage{longtable}
+%%\usepackage{xspace,graphicx, pst-node, tabularx,tabulary}
+\usepackage{tabularx,tabulary}
+% --- -----------------------------------------------------------------
+% --- Page styles
+% --- -----------------------------------------------------------------
+
+\ifnum\setmargin=1
+  \ifnum\papertype=1
+    % a4 paper size
+    \setlength{\textwidth}{16.0cm}
+    \setlength{\textheight}{23.0cm}
+    \setlength{\evensidemargin}{-0.04cm}
+    \setlength{\oddsidemargin}{-0.04cm}
+    \setlength{\topmargin}{-0.5cm}
+    \setlength{\headheight}{0.5cm}
+  \else
+    % letter paper size
+    \setlength{\evensidemargin}{-0.2in}
+    \setlength{\oddsidemargin}{-0.2in}
+    \setlength{\textwidth}{6.9in}
+    \setlength{\textheight}{9.5in}
+    \setlength{\topmargin}{-0.35in}
+    \setlength{\headheight}{0in}
+    \setlength{\headsep}{0in}
+    \setlength{\footskip}{0.5in}
+  \fi
+\fi
+
+%\usepackage{draftwatermark}
+%\SetWatermarkText{Draft}
+%\SetWatermarkScale{5}
+%\SetWatermarkColor[gray]{0.8}
+%\SetWatermarkFontSize{2cm}
+
+% --- -----------------------------------------------------------------
+% --- Document-specific definitions.
+% --- -----------------------------------------------------------------
+
+\input{header}
+% --- -----------------------------------------------------------------
+% --- The document starts here.
+% --- -----------------------------------------------------------------
+
+\begin{document}
+%\input{abstract}
+\vspace{-12mm}
+\input{intro}
+
+
+% --- -----------------------------------------------------------------
+% --- The Bibliography.
+% --- -----------------------------------------------------------------
+
+
+% For final copy, edit main.bbl by adding the command
+% \setlength{\parskip}{-1pt}
+% right after the \begin{bibliography}{10} command. This will make a more
+% compact and prettier bib.
+\ifnum\savespace=0
+\begin{small}
+\def\shortbib{1}
+\bibliographystyle{abbrv}
+\bibliography{cryptobib/abbrev3,cryptobib/crypto,extra}
+% \bibliographystyle{alpha}
+% \bibliography{abbrev,crypto}
+\end{small}
+\else
+\begin{small}
+\def\shortbib{1}
+\bibliographystyle{abbrv}
+\bibliography{cryptobib/abbrev3,cryptobib/crypto,extra}
+\end{small}\fi
+
+% --- -----------------------------------------------------------------
+% --- The Appendix.
+% --- -----------------------------------------------------------------
+
+\appendix
+
+\end{document}

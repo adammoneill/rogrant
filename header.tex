@@ -1,0 +1,2693 @@
+% !Tex root = main.tex
+
+% ==========================================================
+
+\ifnum\llncs=0\ifnum\fullversion=1\ifnum\anonymous=0
+\renewcommand*{\backref}[1]{(Cited on page~#1.)}
+\fi\fi\fi
+
+\DeclareMathAlphabet{\mathsl}{OT1}{cmr}{m}{sl}
+\DeclareMathAlphabet{\mathsc}{OT1}{cmr}{m}{sc}
+\DeclareMathAlphabet{\mathslbf}{OT1}{cmr}{bx}{sl}
+% math script font; extra commands to make slightly larger
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}%
+             {<-> s * [1.150] pzcmi7t}{}
+\DeclareMathAlphabet{\mathscript}{OT1}{pzc}{m}{it}
+\setlength{\fboxsep}{1pt}
+
+% ====================================================================
+
+% Theorem environments
+
+\ifnum\llncs=0
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{propo}[thm]{Proposition}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{assm}[thm]{Assumption}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{egs}[thm]{Example}
+\newtheorem{fct}[thm]{Fact}
+\newtheorem{expr}{Experiment}
+\newtheorem{cons}[thm]{Construction}
+\newtheorem{nte}[thm]{Note}
+
+\newenvironment{theorem}{\begin{thm}}{\end{thm}}
+\newenvironment{lemma}{\begin{lem}}{\end{lem}}
+\newenvironment{corollary}{\begin{cor}}{\end{cor}}
+\newenvironment{proposition}{\begin{propo}}{\end{propo}}
+\newenvironment{definition}{\begin{defn}}%
+{\end{defn}}
+%\newenvironment{definition}{\begin{defn}\begin{rm}}%
+%{\end{rm}\end{defn}}
+\newenvironment{assumption}{\begin{assm}\begin{em}}%
+{\end{em}\end{assm}}
+\newenvironment{claim}{\begin{clm}\begin{rm}}%
+{\end{rm}\end{clm}}
+\newenvironment{remark}{\begin{rem}\begin{em}}%
+{\end{em}\end{rem}}
+\newenvironment{observation}{\begin{obs}\begin{em}}%
+{\end{em}\end{obs}}
+\newenvironment{example}{\begin{egs}\begin{em}}%
+{\end{em}\end{egs}}
+\newenvironment{fact}{\begin{fct}\begin{em}}%
+{\end{em}\end{fct}}
+\newenvironment{construction}{\begin{cons}\begin{rm}}%
+{\end{rm}\end{cons}}
+\newenvironment{note}{\begin{nte}\begin{rm}}%
+{\end{rm}\end{nte}}
+
+\else
+
+\ifnum\fullversion=1
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{propo}[thm]{Proposition}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{assm}[thm]{Assumption}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{fct}[thm]{Fact}
+\newtheorem{expr}{Experiment}
+\newtheorem{cons}[thm]{Construction}
+
+\renewenvironment{theorem}{\begin{thm}}{\end{thm}}
+\renewenvironment{lemma}{\begin{lem}}{\end{lem}}
+\renewenvironment{corollary}{\begin{cor}\begin{rm}}%
+{\end{rm}\end{cor}}
+\renewenvironment{proposition}{\begin{propo}\begin{rm}}%
+{\end{rm}\end{propo}}
+\renewenvironment{definition}{\begin{defn}\begin{rm}}%
+{\end{rm}\end{defn}}
+\newenvironment{assumption}{\begin{assm}\begin{em}}%
+{\end{em}\end{assm}}
+\renewenvironment{claim}{\begin{clm}\begin{rm}}%
+{\end{rm}\end{clm}}
+\renewenvironment{remark}{\begin{rem}\begin{em}}%
+{\end{em}\end{rem}}
+\newenvironment{fact}{\begin{fct}\begin{em}}%
+{\end{em}\end{fct}}
+\newenvironment{construction}{\begin{cons}\begin{rm}}%
+{\end{rm}\end{cons}}
+\fi
+
+\fi
+
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\apref}[1]{Appendix~\ref{#1}}
+\newcommand{\thref}[1]{Theorem~\ref{#1}}
+\newcommand{\defref}[1]{Definition~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\clref}[1]{Claim~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\factref}[1]{Fact~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+\newcommand{\obsref}[1]{Observation~\ref{#1}}
+\ifnum\llncs=1
+  \newcommand{\figref}[1]{Fig.~\ref{#1}}
+\else
+  \newcommand{\figref}[1]{Figure~\ref{#1}}
+\fi
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\consfigref}[1]{Construction~\ref{#1}}
+\renewcommand{\eqref}[1]{\mbox{Equation~(\ref{#1})}}
+\newcommand{\consref}[1]{Construction~\ref{#1}}
+
+
+\def\sqed{{\hspace{1pt}\rule[-1pt]{3pt}{9pt}}}
+\def\qedsym{\hspace{1pt}\rule[-1pt]{3pt}{9pt}}
+\newcommand{\mybox}{\raisebox{-1.5pt}{{\Large $\Box$}}}
+\def\enddef{{\sqed}}
+
+\newcommand{\Mybox}[1]{\framebox{\strut #1}}
+
+
+\newlength{\saveparindent}
+\setlength{\saveparindent}{\parindent}
+\newlength{\saveparskip}
+\setlength{\saveparskip}{\parskip}
+
+\ifnum\llncs=0
+% deluxe proof environment
+\def\qsym{\vrule width0.6ex height1em depth0ex}
+\newcount\proofqeded
+\newcount\proofended
+\def\qed{{\hspace{1pt}\rule[-1pt]{3pt}{9pt}}
+\end{rm}\addtolength{\parskip}{-0pt}
+\setlength{\parindent}{\saveparindent}
+\global\advance\proofqeded by 1 }
+\def\qedenv{
+\end{rm}\addtolength{\parskip}{-0pt}
+\setlength{\parindent}{\saveparindent}
+\global\advance\proofqeded by 1 }
+\newenvironment{proof}%
+ {\proofstart}%
+ {\ifnum\proofqeded=\proofended~\qed\fi \global\advance\proofended by 1
+  \medskip}
+\newenvironment{proofenv}%
+ {\proofenvstart}%
+ {\ifnum\proofqeded=\proofended\qedenv\fi \global\advance\proofended by 1
+  \medskip}
+\makeatletter
+\def\proofstart{\@ifnextchar[{\@oprf}{\@nprf}}
+\def\proofenvstart{\@ifnextchar[{\@osprf}{\@nsprf}}
+\def\@oprf[#1]{\begin{rm}\protect\vspace{6pt}\noindent{\bf Proof of #1:\ }%
+\addtolength{\parskip}{5pt}\setlength{\parindent}{0pt}}
+\def\@osprf[#1]{\begin{rm}\protect\vspace{6pt}\noindent
+\addtolength{\parskip}{5pt}\setlength{\parindent}{0pt}}
+\def\@nprf{\begin{rm}\protect\vspace{6pt}\noindent{\bf Proof:\ }%
+\addtolength{\parskip}{5pt}\setlength{\parindent}{0pt}}
+\def\@nsprf{\begin{rm}\protect\vspace{6pt}\noindent%
+\addtolength{\parskip}{5pt}\setlength{\parindent}{0pt}}
+
+\fi
+
+% ========================================================================
+
+% Lists
+
+\newcounter{ctr}
+\newcounter{savectr}
+\newcounter{ectr}
+\newcounter{eectr}
+
+\newenvironment{newenum}{%
+\begin{list}{{\rm (\arabic{ctr})}\hfill}{\usecounter{ctr} \labelwidth=15pt%
+\labelsep=7pt \leftmargin=22pt \topsep=0pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt} }}{\end{list}}
+
+\newenvironment{newenumbf}{%
+\begin{list}{{\bf \arabic{ctr}.}\hfill}{\usecounter{ctr} \labelwidth=15pt%
+\labelsep=5pt \leftmargin=20pt \topsep=2pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt} }}{\end{list}}
+
+\newenvironment{planlist}{%
+\begin{list}{\hfill}{\usecounter{ctr}\labelwidth=0pt%
+\labelsep=0pt \leftmargin=0pt \topsep=20pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{20pt} }}{\end{list}}
+
+\newenvironment{snewenumbf}{%
+\begin{list}{\hfill{\bf \arabic{ctr}.}}{\usecounter{ctr} \labelwidth=12pt%
+\labelsep=6pt \leftmargin=15pt \topsep=2pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt} }}{\end{list}}
+
+\newenvironment{bignewenum}{%
+\begin{list}{{\bf (\arabic{ctr})}\hfill}{\usecounter{ctr} \labelwidth=17pt%
+\labelsep=7pt \leftmargin=24pt \topsep=4pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{4pt} }}{\end{list}}
+
+\newenvironment{tiret}{%
+\begin{list}{\hspace{0pt}\rule[0.5ex]{6pt}{1pt}\hfill}{\labelwidth=14pt%
+\labelsep=1pt \leftmargin15pt \topsep=2pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{1pt} }}{\end{list}}
+
+\newenvironment{onelist}{%
+\begin{list}{{\rm (\arabic{ctr})}\hfill}{\usecounter{ctr} \labelwidth=20pt%
+\labelsep=7pt \leftmargin=27pt \topsep=0pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt}}}{\end{list}}
+
+\newenvironment{twolist}{%
+\begin{list}{{\rm (\arabic{ctr}.\arabic{ectr})}%
+\hfill}{\usecounter{ectr} \labelwidth=24pt%
+\labelsep=7pt \leftmargin=31pt \topsep=0pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt} }}{\end{list}}
+
+\newenvironment{newitemize}{%
+\begin{list}{\hfill$\bullet$}{\labelwidth=10pt%
+\labelsep=8pt \leftmargin=18pt \topsep=2pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt} }}{\end{list}}
+
+\newenvironment{steplist}{%
+\begin{list}{\textbf{Step~{\arabic{ctr}:}}\hfill}
+{\usecounter{ctr} \labelwidth=40pt%
+\labelsep=5pt \leftmargin=45pt \topsep=5pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{3pt} }}{\end{list}}
+
+\newenvironment{substeplist}{%
+\begin{list}{\textbf{\arabic{ctr}.\arabic{ectr}}\hfill}
+{\usecounter{ectr} \labelwidth=18pt%
+\labelsep=5pt \leftmargin=23pt \topsep=2pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt} }}{\end{list}}
+
+\newlength{\savejot}
+\setlength{\jot}{6pt}
+\setlength{\savejot}{\jot}
+
+\ifnum\llncs=0
+
+\newenvironment{newmath}{\begin{displaymath}%
+\setlength{\abovedisplayskip}{6pt}%
+\setlength{\belowdisplayskip}{6pt}%
+\setlength{\abovedisplayshortskip}{8pt}%
+\setlength{\belowdisplayshortskip}{8pt} }{\end{displaymath}}
+
+\newenvironment{neweqnarrays}{\begin{eqnarray*}%
+\setlength{\abovedisplayskip}{-4pt}%
+\setlength{\belowdisplayskip}{-4pt}%
+\setlength{\abovedisplayshortskip}{-4pt}%
+\setlength{\belowdisplayshortskip}{-4pt}%
+\setlength{\jot}{-0.4in} }{\end{eqnarray*}}
+
+\newenvironment{newequation}{\begin{equation}%
+\setlength{\abovedisplayskip}{6pt}%
+\setlength{\belowdisplayskip}{6pt}%
+\setlength{\abovedisplayshortskip}{8pt}%
+\setlength{\belowdisplayshortskip}{8pt} }{\end{equation}}
+
+\else
+
+\newenvironment{newmath}{\begin{displaymath}%
+}{\end{displaymath}}
+\newenvironment{neweqnarrays}{\begin{eqnarray*}%
+}{\end{eqnarray*}}
+\newenvironment{newequation}{\begin{equation}%
+}{\end{equation}}
+
+\fi
+
+% =========================================================================
+
+\ifnum\llncs=0
+
+\makeatletter
+\def\appearsin#1{\gdef\@appearsin{#1}}
+\def\maketitle{\par
+ \begingroup
+ \def\thefootnote{\arabic{footnote}}
+ % \def\thefootnote{\fnsymbol{footnote}}
+ \def\@makefnmark{\hbox
+ to 0pt{$^{\@thefnmark}$\hss}}
+ \if@twocolumn
+ \twocolumn[\@maketitle]
+ \else \newpage
+ \global\@topnum\z@ \@maketitle \fi\thispagestyle{plain}\@thanks
+ \endgroup
+ \setcounter{footnote}{0}
+ \let\maketitle\relax
+ \let\@maketitle\relax
+ \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\gdef\@appearsin{}
+          \let\thanks\relax}
+\def\@maketitle{\newpage
+ \noindent \@appearsin
+ \vskip 0.5in \begin{center}
+ {\LARGE \@title \par} \vskip 1.5em {\large \lineskip .5em
+\begin{tabular}[t]{c}\@author
+ \end{tabular}\par}
+ \vskip 1em {\normalsize \@date} \end{center}
+ \par
+ \vskip 1.5em}
+\def\abstract{\if@twocolumn
+\section*{Abstract}
+\else \small
+\begin{center}
+{\bf Abstract\vspace{-.5em}\vspace{0pt}}
+\end{center}
+\quotation
+\fi}
+\def\endabstract{\if@twocolumn\else\endquotation\fi}
+\mark{{}{}}
+
+\fi
+
+% =========================================================================
+
+% General
+
+\ifnum\llncs=1
+\newcommand{\mysubsubsection}[1]{\vspace{-5pt}\subsubsection{#1.}}
+\newcommand{\headingb}[1]{\vspace{-5pt}\subsubsection{#1.}}
+\else
+\newcommand{\mysubsubsection}[1]{\subsubsection{#1}}
+% \newcommand{\headingb}[1]{\subsection{#1}}
+\newcommand{\headingb}[1]{{\vspace{5pt}\noindent\textbf{#1.}}}
+\fi
+\newcommand{\headingg}[1]{{\sc{#1}}}
+\newcommand{\heading}[1]{{\vspace{5pt}\noindent\sc{#1}}}
+
+\newcommand{\tuple}[1]{\langle{#1}\rangle}
+\def\from{\mbox{from}\ }
+\def\From{\mbox{From}\ }
+\def\bits{\{0,1\}}
+\def\cross{\times}
+\newcommand{\xor}{{\oplus}}
+\newcommand{\Colon}{{:\;\;}}
+\newcommand{\mystrut}{\rule{0em}{15pt}}
+\newcommand{\namestrut}{\rule{0em}{20pt}}
+\def\poly{\mathop{\rm poly}\nolimits}
+\def\emptystring{\varepsilon}
+\def\emptyid{()}
+\newcommand{\Dom}{\mathsf{Dom}}
+\newcommand{\DomR}{\mathsf{DomR}}
+\newcommand{\Rng}{\mathsf{Rng}}
+\newcommand{\RngR}{\mathsf{RngR}}
+\newcommand{\Keys}{\mathsf{Keys}}
+\newcommand{\calA}{{\cal A}}
+\newcommand{\calB}{{\cal B}}
+\newcommand{\calC}{{\cal C}}
+\newcommand{\calF}{{\cal F}}
+\newcommand{\calK}{{\cal K}}
+\newcommand{\calM}{{\cal M}}
+\newcommand{\calO}{{\cal O}}
+\newcommand{\calR}{{\cal R}}
+\newcommand{\calH}{{\cal H}}
+\newcommand{\calG}{{\cal G}}
+\newcommand{\calD}{{\cal D}}
+\newcommand{\calI}{{\cal I}}
+\newcommand{\calE}{{\cal E}}
+\newcommand{\calP}{{\cal P}}
+\newcommand{\calS}{{\cal S}}
+\newcommand{\calU}{{\cal U}}
+\newcommand{\calX}{{\cal X}}
+\newcommand{\calY}{{\cal Y}}
+\newcommand{\calZ}{{\cal Z}}
+\newcommand{\calEE}{{\cal EE}}
+\newcommand{\N}{{{\mathbb N}}}
+\newcommand{\Z}{{{\mathbb Z}}}
+\newcommand{\R}{{{\mathbb R}}}
+\newcommand{\goesto}{{\rightarrow}}
+\newcommand{\eqdef}{\;\stackrel{\rm def}{=}\;}
+\newcommand{\then}{{\;;\;\;}}   % for [ ; ; ; : ] notation
+\newcommand{\andthen}{{\;:\;\;}}
+\newcommand{\myspace}{{\;\;\;}} 
+\def\union{\cup}
+\def\bigunion{\bigcup}
+\def\intersection{\cap}
+\def\bigintersection{\bigcap}
+\def\suchthatt{\: :\:}
+\newcommand{\suchthat}{{\mbox{s.t.\ }}}
+\def\next{\:;\:}
+\def\nextt{\:;\:}
+\def\nexttt{\ifnum\llncs=0; \else\\\fi}
+\newcommand{\sett}[1]{\{#1\}}
+\newcommand{\set}[2]{\{\:#1 \suchthatt #2\:\}}
+\newcommand{\setsize}[1]{\left|{#1}\right|}
+\def\leqq{\;\leq\;}
+\def\eqq{\;=\;}
+\def\geqq{\;\geq\;}
+\def\equivv{\;\equiv\;}
+\def\prn#1{\left(#1\right)}
+\newcommand{\getsr}{{\:{\leftarrow{\hspace*{-3pt}\raisebox{.75pt}{$\scriptscriptstyle\$$}}}\:}}
+% \def\getsr{\stackrel{{\scriptscriptstyle\$}}{\leftarrow}}
+% \renewcommand{\choose}[2]{{{#1}\atopwithdelims(){#2}}}
+\newcommand{\OR}{{\textstyle\bigvee}}
+\newcommand{\Var}{{\mbox{\bf Var}}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\EE}[1]{{\E\left[{#1}\right]}}
+\newcommand{\EEE}[2]{{\E_{#1}\left[{#2}\right]}}
+\newcommand{\Prob}[1]{{\Pr\left[\,{#1}\,\right]}}
+\newcommand{\probb}[2]{{\Pr}_{#1}\left[\,{#2}\,\right]}
+\newcommand{\probbs}[3]{{\Pr}^{#1}_{#2}\left[\,{#3}\,\right]}
+\newcommand{\probbp}[2]{{\Pr}_{#1}'\left[\,{#2}\,\right]}
+\newcommand{\Probb}[2]{{{\Pr}_{#1}\left[\,{#2}\,\right]}}
+\newcommand{\Probbp}[2]{{{\Pr}_{#1}'\left[\,{#2}\,\right]}}
+\newcommand{\condProb}[2]{{\Pr}\left[\,#1\,|\,#2\,\right]}
+\newcommand{\CondProb}[2]{{\Pr}\left[\: #1\:\left|\right.\:#2\:\right]}
+\newcommand{\CondProbb}[3]{{\Pr}_{#1}\left[\: #2\:\left|\right.\:#3\:\right]}
+\newcommand{\CondProbbp}[3]{%
+{\Pr}_{#1}^{'}\left[\: #2\:\left|\right.\:#3\:\right]}
+\ifnum\fullversion=1
+\newcommand{\ProbExp}[2]{{\Pr}\left[\: #1\:\suchthatt\:#2\:\right]}
+\else
+\newcommand{\ProbExp}[2]{{\Pr}[#1\,:\,#2]}
+\fi
+\newcommand{\expect}[1]{{{\mathbf{E}}\left[\,{#1}\,\right]}}
+\newcommand{\expectt}[1]{{{\mathbf{E}}\left[{#1}\right]}}
+\newcommand{\qquadd}{{\quad}}
+\def\d{{\delta}}
+\def\e{{\epsilon}}
+\newcommand{\sfrac}[2]{{\textstyle\frac{#1}{#2}}}
+\newcommand{\ceiling}[1]{\lceil #1\rceil}
+\def\pprod{{\textstyle\prod}}
+\def\ssum{{\textstyle\sum}}
+\newcommand{\concat}{{\,\|\,}}
+\newcommand{\infi}[2]{\inf_{#1}\left\{#2\right\}}
+\newcommand{\supr}[2]{\sup_{#1}\left\{#2\right\}}
+\newcommand{\Maps}{\mathsf{Maps}}
+
+% ========================================================================
+
+\newcommand{\verylongleftarrow}[1]
+      {\setlength{\unitlength}{.01in}
+      \begin{picture}(#1,1) \put(#1,0){\vector(-1,0){#1}} \end{picture}}
+\newcommand{\verylongrightarrow}[1]             %longleft and rightgoing arrows
+      {\setlength{\unitlength}{.01in}           %for protocols
+      \begin{picture}(#1,1) \put(0,0){\vector(1,0){#1}} \end{picture}}
+\newcommand{\leftgoing}[2]{{\stackrel{{\displaystyle #2}} {\verylongleftarrow{#1}}}}
+\newcommand{\rightgoing}[2]{{\stackrel{{\displaystyle #2}} {\verylongrightarrow{#1}}}}
+
+\newcommand{\leftgoinga}[1]{\leftgoing{230}{#1} }
+\newcommand{\rightgoinga}[1]{\rightgoing{230}{#1} }
+
+\newcommand{\leftgoingb}[1]{\leftgoing{300}{#1} }
+\newcommand{\rightgoingb}[1]{\rightgoing{300}{#1} }
+
+\newcommand{\seq}{\!=\!}
+\newcommand{\sminus}{\!-\!}
+\newcommand{\splus}{\!+\!}
+
+
+% ===================================================================
+\newcommand{\kwfont}[1]{{\ensuremath{\mathrm{#1}}}}
+\newcommand{\kwfunction}{{\kwfont{function}\ }}
+\newcommand{\kwlabel}{{\kwfont{label}\ }}
+\newcommand{\kwfor}{{\kwfont{for}\ }}
+\newcommand{\kwand}{{\kwfont{and}\ }}
+\newcommand{\kwor}{{\kwfont{or}\ }}
+\newcommand{\kwnot}{{\kwfont{not}}}
+\newcommand{\kwdo}{{\kwfont{do}\ }}
+\newcommand{\kwreturn}{{\kwfont{return}\ }}
+\newcommand{\kwReturn}{{\kwfont{Return}\ }}
+\newcommand{\kwalgorithm}{{\ensuremath{\mathbf{Algorithm}\ }}}
+\newcommand{\kwprotocol}{{\kwfont{Protocol}\ }}
+\newcommand{\kwexperiment}{{\kwfont{Game}\ }}
+\newcommand{\kwadversary}{{\kwfont{Adversary}\ }}
+\newcommand{\kworacle}{{\kwfont{Oracle}\ }}
+\newcommand{\kwuntil}{{\kwfont{until}\ }}
+\newcommand{\kwrepeat}{{\kwfont{repeat}\ }}
+\newcommand{\kwif}{{\kwfont{If}\ }}
+\newcommand{\kwthen}{{\kwfont{Then}\ }}
+\newcommand{\kwelse}{{\kwfont{Else}\ }}
+\newcommand{\kwabort}{{\kwfont{abort}\ }}
+\newcommand{\kwgoto}{{\kwfont{goto}\ }}
+\newcommand{\kwwhile}{{\kwfont{while}\ }}
+\newcommand{\kwparse}{{\kwfont{parse}\ }}
+\newcommand{\kwas}{{\kwfont{as}\ }}
+\newcommand{\kwstatic}{{\kwfont{static}\ }}
+\newcommand{\kwrun}{{\kwfont{run}\ }}
+\newcommand{\kwbegin}{{\kwfont{begin}\ }}
+\newcommand{\kwend}{{\kwfont{end}\ }}
+\newcommand{\kwstart}{{\kwfont{start}\ }}
+\newcommand{\kwcontinue}{{\kwfont{continue}\ }}
+\newcommand{\kwdefine}{{\kwfont{define}\ }}
+\newcommand{\kwflip}{{\kwfont{flip}\ }}
+\newcommand{\kwlet}{{\kwfont{let}\ }}
+\newcommand{\kwof}{{\kwfont{of}\ }}
+\newcommand{\kwcase}{{\kwfont{case}\ }}
+\newcommand{\kwswitch}{{\kwfont{switch}\ }}
+\newcommand{\kwpick}{{\kwfont{pick}\ }}
+\newcommand{\kwset}{{\kwfont{set}\ }}
+\newcommand{\kwcompute}{{\kwfont{compute}\ }}
+\newcommand{\comment}[1]{\hspace{15pt}{\small /$\!\!$/\ #1}}
+\newcommand{\Comment}[1]{\hspace{5pt}{/$\!\!$/\ #1}}
+\newcommand{\sComment}[1]{\hspace{2pt}{/$\!\!$/#1}}
+
+\newcommand{\authnote}[2]{\ifnum\authnotes=1 \begin{center}\fbox{\begin{minipage}{5.7in}
+\textbf{#1 says:} #2\end{minipage}}\end{center} \fi}
+
+\newcommand{\main}{\procfont{Game}}
+
+
+\newcommand{\gamesfontsize}{\small}
+% \footnotesize}
+\ifnum\llncs=0
+\renewcommand{\captionfont}{}
+\else
+%\newcommand{\captionfont}{}
+\fi
+\newcommand{\indd}{\hspace*{12pt}}
+
+\newcommand{\mpage}[2]{\begin{minipage}{#1\textwidth} #2 \end{minipage}}
+\newcommand{\fpage}[2]{\framebox{\begin{minipage}[t]{#1\textwidth}\setstretch{1.2}\gamesfontsize  #2 \end{minipage}}}
+
+\newcommand{\hfpages}[3]{\hfpagess{#1}{#1}{#2}{#3}}
+\newcommand{\hfpagess}[4]{
+        \begin{tabular}{c@{\hspace*{.5em}}c}
+        \framebox{\begin{minipage}[t]{#1\textwidth}\setstretch{1.2}\gamesfontsize #3 \end{minipage}}
+        &
+        \framebox{\begin{minipage}[t]{#2\textwidth}\setstretch{1.2}\gamesfontsize #4 \end{minipage}}
+        \end{tabular}
+    }
+\newcommand{\hfpagesss}[6]{
+        \begin{tabular}{c@{\hspace*{.1em}}c@{\hspace*{.1em}}c}
+        \framebox{\begin{minipage}[t]{#1\textwidth}\setstretch{1.2}\gamesfontsize #4 \end{minipage}}
+        &
+        \framebox{\begin{minipage}[t]{#2\textwidth}\setstretch{1.2}\gamesfontsize #5 \end{minipage}}
+        &
+        \framebox{\begin{minipage}[t]{#3\textwidth}\setstretch{1.2}\gamesfontsize #6 \end{minipage}}
+        \end{tabular}
+    }
+
+\newcommand{\hfpagessss}[8]{
+        \begin{tabular}{c@{\hspace*{.5em}}c}
+        \framebox{\begin{minipage}[t]{#1\textwidth}\setstretch{1.2}\gamesfontsize #5 \end{minipage}}
+        &
+        \framebox{\begin{minipage}[t]{#2\textwidth}\setstretch{1.2}\gamesfontsize
+#6 \end{minipage}}\\[3in]
+        \framebox{\begin{minipage}[t]{#3\textwidth}\setstretch{1.2}\gamesfontsize #7 \end{minipage}} 
+        & 
+		\framebox{\begin{minipage}[t]{#4\textwidth}\setstretch{1.2}\gamesfontsize #8 \end{minipage}}
+        \end{tabular}
+    }
+
+\newcommand{\boxFourColTable}[8]{
+		\fpage{0.98}{\smallskip
+        \begin{tabular}{c@{\hspace*{.1em}}|@{\hspace*{.4em}}c@{\hspace*{.1em}}|@{\hspace*{.4em}}c@{\hspace*{.1em}}|@{\hspace*{.4em}}c@{\hspace*{.1em}}}
+        {\begin{minipage}[t]{#1\textwidth}\setstretch{1}\gamesfontsize #5 \end{minipage}}
+        &
+        {\begin{minipage}[t]{#2\textwidth}\setstretch{1}\gamesfontsize #6 \end{minipage}}
+        &
+        {\begin{minipage}[t]{#3\textwidth}\setstretch{1}\gamesfontsize #7 \end{minipage}}
+		&
+		{\begin{minipage}[t]{#4\textwidth}\setstretch{1}\gamesfontsize #8 \end{minipage}}
+
+        \end{tabular}\smallskip
+        }
+    }
+
+
+
+\newcommand{\boxFourColThreeSepTable}[8]{
+		\smallskip
+        \begin{tabular}{c@{\hspace*{.1em}}|@{\hspace*{.4em}}c@{\hspace*{.1em}}|@{\hspace*{.4em}}c@{\hspace*{.2em}}c}
+        {\begin{minipage}[t]{#1\textwidth}\setstretch{1}\gamesfontsize #5 \end{minipage}}
+        &
+        {\begin{minipage}[t]{#2\textwidth}\setstretch{1}\gamesfontsize #6 \end{minipage}}
+        &
+        {\begin{minipage}[t]{#3\textwidth}\setstretch{1}\gamesfontsize #7 \end{minipage}}
+		&
+		{\begin{minipage}[t]{#4\textwidth}\setstretch{1}\gamesfontsize #8 \end{minipage}}
+
+        \end{tabular}\smallskip
+
+    }
+
+\newcommand{\hpagesl}[3]{\begin{tabular}{c|c}\begin{minipage}{#1\textwidth} #2 \end{minipage} & \begin{minipage}{#1\textwidth} #3 \end{minipage}\end{tabular}}
+\newcommand{\hpagessl}[4]{\begin{tabular}{c|c}\begin{minipage}[t]{#1\textwidth} #3 \end{minipage} & \begin{minipage}[t]{#2\textwidth} #4 \end{minipage}\end{tabular}}
+\newcommand{\hpages}[3]{\begin{tabular}{cc}\begin{minipage}[t]{#1\textwidth} #2 \end{minipage} & \begin{minipage}[t]{#1\textwidth} #3 \end{minipage}\end{tabular}}
+\newcommand{\hpagess}[4]{
+    \begin{tabular}{cc}
+    \begin{minipage}[t]{#1\textwidth}\setstretch{1.1}\gamesfontsize  #3 \end{minipage}
+    &
+    \begin{minipage}[t]{#2\textwidth}\setstretch{1.1}\gamesfontsize #4 \end{minipage}\end{tabular}
+   }
+\newcommand{\hpagesss}[6]{
+    \begin{tabular}{ccc}
+    \begin{minipage}[t]{#1\textwidth}\setstretch{1.1}\gamesfontsize #4 \end{minipage} &
+    \begin{minipage}[t]{#2\textwidth}\setstretch{1.1}\gamesfontsize #5 \end{minipage} &
+    \begin{minipage}[t]{#3\textwidth}\setstretch{1.1}\gamesfontsize #6 \end{minipage}
+    \end{tabular}}
+\newcommand{\hpagessss}[8]{
+    \begin{tabular}{cc}
+    \begin{minipage}[t]{#1\textwidth}\setstretch{1.1}\gamesfontsize  #5 \end{minipage} &
+    \begin{minipage}[t]{#2\textwidth}\setstretch{1.1}\gamesfontsize #6 \end{minipage}\\
+    \begin{minipage}[t]{#3\textwidth}\setstretch{1.1}\gamesfontsize  #7 \end{minipage} & 
+    \begin{minipage}[t]{#4\textwidth}\setstretch{1.1}\gamesfontsize  #8 \end{minipage}
+    \end{tabular}}
+
+
+
+\newcommand{\hpagesssl}[6]{
+    \begin{tabular}{c|c|c}
+    \begin{minipage}[t]{#1\textwidth} #4 \end{minipage} &
+    \begin{minipage}[t]{#2\textwidth} #5 \end{minipage} &
+    \begin{minipage}[t]{#3\textwidth} #6 \end{minipage}
+    \end{tabular}}
+
+\newcommand{\threeCols}[6]{
+\begin{center}
+        \framebox{
+        \begin{tabular}{@{\hspace{-0.2em}}c@{\hspace{0.2em}}|@{\hspace{0.2em}}c@{\hspace{0.2em}}|@{\hspace{0.2em}}c@{\hspace{0.2em}}}
+        \begin{minipage}[t]{#1\textwidth}\setstretch{1.1}\gamesfontsize #4
+        \end{minipage} &
+        \begin{minipage}[t]{#2\textwidth}\setstretch{1.1}\gamesfontsize #5
+        \end{minipage} &
+        \begin{minipage}[t]{#3\textwidth}\setstretch{1.1}\gamesfontsize #6
+        \end{minipage}
+        \end{tabular}
+        }
+\end{center}
+}
+
+\newcommand{\twoCols}[4]{
+\begin{center}
+        \framebox{
+        \begin{tabular}{c@{\hspace*{.4em}}|c@{\hspace*{.4em}}c}
+        \begin{minipage}[t]{#1\textwidth}\setstretch{1.2}\gamesfontsize #3 \end{minipage}
+        &
+        \begin{minipage}[t]{#2\textwidth}\setstretch{1.2}\gamesfontsize #4 \end{minipage}
+        \end{tabular}
+        }
+\end{center}
+}
+
+
+\newcommand{\gameName}[1]{\underline{$\main$ #1} \\[2pt]}
+\newcommand{\procName}[1]{\underline{#1} \\[2pt]}
+
+\newcommand{\bnm}{\begin{newmath}}
+\newcommand{\enm}{\end{newmath}}
+
+\newcommand{\bea}{\begin{eqnarray*}}
+\newcommand{\eea}{\end{eqnarray*}}
+
+\newcommand{\return}{\textrm{Ret}~}
+
+% ==================================================================
+% Definitions for this paper
+% ==================================================================
+
+
+% General defs
+\def\vk{\mathit{vk}}
+\def\ek{\varfont{ek}}
+\def\td{\varfont{td}}
+\def\pk{\varfont{pk}}
+\def\sk{\varfont{sk}}
+\newcommand{\vecsk}{\mathbf{sk}}
+\newcommand{\vecpk}{\mathbf{pk}}
+\newcommand{\vecm}{\mathbf{m}}
+\newcommand{\vecM}{\mathbf{M}}
+\newcommand{\vecX}{\mathbf{X}}
+\newcommand{\vecU}{\mathbf{U}}
+%\newcommand{\vecx}{\mathbf{x}}
+\newcommand{\vecY}{\mathbf{Y}}
+\def\dk{\varfont{dk}}
+\def\ak{\varfont{ak}}
+\def\stateinfo{\varfont{st}}
+\def\st{\varfont{state}}
+\def\stt{\varfont{St}}
+\newcommand{\RO}{\mathsc{RO}}
+\newcommand{\keygen}{KG}
+\newcommand{\pargen}{PG}
+\newcommand{\trapdoor}{Td}
+\newcommand{\test}{Test}
+%\newcommand{\setup}{Setup}
+\newcommand{\keyder}{Ext}
+\renewcommand{\AE}{\mathcal{AE}}
+%\newcommand{\enc}{\mathcal{E}}
+\newcommand{\enc}{\mathsf{Enc}}
+\newcommand{\Rec}{\mathsf{Rec}}
+%\newcommand{\decc}{\mathcal{D}}
+\newcommand{\decc}{\mathsf{Dec}}
+\newcommand{\eval}{\mathsf{Eval}}
+\newcommand{\inv}{\mathsf{Inv}}
+\newcommand{\ikg}{\mathsf{IKg}}
+\newcommand{\lkg}{\mathsf{LKg}}
+\newcommand{\genc}{\algfont{\Enc}}
+\newcommand{\dec}{\mathsf{Dec}}
+\newcommand{\gdec}{\algfont{\Dec}}
+%\newcommand{\com}{Com}
+\newcommand{\ver}{Ver}
+\newcommand{\open}{\ver}
+\def\Hash{H}
+%\newcommand{\OWF}{\mathsf{OWF}}
+\newcommand{\owf}{{\notionfont{owf}}}
+\newcommand{\pow}{{\notionfont{pow}}}
+
+
+\newcommand{\PADScheme}{\mathsf{PAD}}
+
+
+
+
+\newcommand{\colr}{{\notionfont{cr}}}
+\newcommand{\ncolr}{{\notionfont{n\mbox{-}cr}}}
+
+\newcommand{\Ext}{\mathsf{Ext}}
+\newcommand{\SIE}{\ensuremath{\textrm{SIE}}}
+\newcommand{\CIE}{\ensuremath{\textrm{CIE}}}
+\newcommand{\sie}{\mathsf{sie}}
+\newcommand{\cie}{\mathsf{cie}}
+\newcommand{\cdist}{\mathsf{cdist}}
+
+\newcommand{\eowf}{\mathsf{eowf}}
+\newcommand{\eowfaux}{\mathsf{eowf\mbox{-}aux}}
+\newcommand{\qeowf}{\mathsf{q\mbox{-}eowf}}
+
+\newcommand{\oneext}{{\notionfont{1\mbox{-}ext}}}
+\newcommand{\ext}{{\notionfont{ext}}}
+\newcommand{\extaux}{{\notionfont{ext\mbox{-}aux}}}
+\newcommand{\qext}{\mathsf{q\mbox{-}ext}}
+\newcommand{\qextaux}{\mathsf{q\mbox{-}ext\mbox{-}aux}}
+
+
+
+
+\iffalse
+\newcommand{\LTDFikg}{\schalg{LT}{IKg}}
+\newcommand{\LTDFlkg}{\schalg{LT}{LKg}}
+\newcommand{\LTDFeval}{\schalg{LT}{Eval}}
+\newcommand{\LTDFinv}{\schalg{LT}{Inv}}
+\newcommand{\LTDFkl}{\schalg{LT}{kl}}
+\fi
+
+\newcommand{\LTDFikg}{\mathsf{IKg}}
+\newcommand{\LTDFlkg}{\mathsf{LKg}}
+\newcommand{\LTDFeval}{\mathsf{Eval}}
+\newcommand{\LTDFinv}{\mathsf{Inv}}
+\newcommand{\LTDFkl}{\mathsf{kl}}
+
+\newcommand{\ABNkg}{\schalg{NLT}{Kg}}
+\newcommand{\ABNeval}{\schalg{NLT}{Eval}}
+\newcommand{\ABNinv}{\schalg{NLT}{Inv}}
+
+\newcommand{\ABNLEkg}{\schalg{NLE}{Kg}}
+\newcommand{\ABNLTDFkg}{\schalg{NLT}{Kg}}
+
+\newcommand{\TD}{\mathsf{F}}
+\newcommand{\Fkg}{\schalg{F}{Kg}}
+\newcommand{\Feval}{\schalg{F}{Eval}}
+\newcommand{\Fin}{\schalg{F}{Inv}}
+
+
+
+%\newcommand{\RS}{\mathsf{RS}}
+%\newcommand{\AdvSimple}{\Adv^{\mathrm{prefix}}}
+%\newcommand{\Simple}{\mathrm{Prefix}}
+%\newcommand{\ready}{\mathsl{ready}}
+\newcommand{\Prefix}{\mathsl{Prefix}}
+
+
+\def\Hoo{\text{H}_\infty}
+
+\def\Hav{\widetilde{\text{H}}_\infty}
+\def\Hup{\text{H}^\mathsf{unp}}
+
+
+\newcommand{\Funcs}{\mathsf{Funcs}}
+
+\newcommand{\funcs}{\Phi}
+\newcommand{\domain}{\textrm{Dom}}
+\newcommand{\hardrelgen}{\mathcal{G}}
+
+\def\PKEacron{\mathsf{PKE}}
+\def\IBEacron{IBE}
+\def\PEKSacron{PEKS}
+\def\CMTacron{CMT}
+\def\REDacron{Red}
+
+
+% Other defs
+\newcommand{\primX}{\mathbf{X}}
+\newcommand{\primY}{\mathbf{Y}}
+
+\newcommand{\TDFDom}{\mathsf{TDom}}
+\newcommand{\TDFRng}{\mathsf{TRng}}
+\newcommand{\TDFIKg}{\mathsf{Kg}}
+\newcommand{\TDFEval}{\mathsf{Eval}}
+\newcommand{\TDFInv}{\mathsf{Inv}}
+
+\newcommand{\deffont}{\rm}
+\newcommand{\schemefont}[1]{{\mathsf{#1}}}
+\newcommand{\primfont}[1]{{\mathsf{#1}}}
+\newcommand{\algfont}[1]{{\mathsf{#1}}}
+\newcommand{\advfont}[1]{{\mathsf{#1}}}
+\newcommand{\orfont}[1]{\mathsc{#1}}
+\newcommand{\varfont}[1]{\mathit{#1}}
+\newcommand{\randvarfont}[1]{\mathbf{#1}}
+\newcommand{\constfont}[1]{\mathtt{#1}}
+\newcommand{\notionfont}[1]{\mathrm{#1}}
+\newcommand{\eventfont}[1]{{\mathsc{#1}}}
+\newcommand{\vectorfont}[1]{\mathslbf{#1}}
+\newcommand{\transformfont}[1]{\mathsf{#1}}
+
+\newcommand{\schemeset}{\primfont{SS}}
+\newcommand{\aclass}{\primfont{AC}}
+\newcommand{\schemealg}[2]{#1.#2}
+\newcommand{\primcomp}[2]{#1.#2}
+\newcommand{\primcompalg}[3]{#1.#2.#3}
+\newcommand{\SYN}{\mathsf{SYN}}
+\newcommand{\SC}{\mathsf{SC}}
+\newcommand{\PR}{\mathsf{PR}}
+\newcommand{\wPR}{\mathsf{wPR}}
+\newcommand{\AEnc}{\mathsf{AuE}}
+\newcommand{\SGames}{\mathsf{Gm}}
+\newcommand{\Schemes}{\mathsf{Sch}}
+
+\newcommand{\enquote}[1]{{``{#1}''}}
+\newcommand{\SUCC}{\eventfont{Succ}}
+\newcommand{\BAD}{\varfont{Bad}}
+\newcommand{\TRUE}{{\constfont{True}}}
+\newcommand{\FALSE}{{\constfont{False}}}
+\newcommand{\NegEvent}[1]{\overline{#1}}
+\newcommand{\BAR}[1]{\overline{#1}}
+\newcommand{\guessb}{b'}
+
+\newcommand{\Adv}{\mathbf{Adv}}
+\newcommand{\Exp}{\mathbf{Exp}}
+\newcommand{\Succ}{\mathbf{Succ}}
+\newcommand{\Max}[2]{\max_{#1} \{\, #2 \, \}}
+\newcommand{\Hyb}[2]{\mathbf{Hybrid}_{#1,#2}}
+\newcommand{\advclass}[2]{\mathcal{A}^{#1}_{#2}}
+\newcommand{\anew}{\overline{A}}
+\newcommand{\advA}{A}
+\newcommand{\advB}{B}
+\newcommand{\advI}{I}
+\newcommand{\advW}{W}
+\newcommand{\advH}{H}
+\newcommand{\advU}{U}
+\newcommand{\advF}{F}
+\newcommand{\advG}{G}
+\newcommand{\advO}{O}
+
+\newcommand{\user}{\calU}
+\newcommand{\orO}{\orfont{O}}
+\newcommand{\Coll}{\mathbf{Coll}}
+
+\newcommand{\scheme}{\schemefont{S}}
+\newcommand{\PRF}{\schemefont{PRF}}
+\newcommand{\PRFP}{\schalg{\PRF}{Pg}}
+\newcommand{\PRFE}{\schalg{\PRF}{Eval}}
+\newcommand{\PRFPunct}{\schalg{\PRF}{Punct}}
+\newcommand{\fprf}{\schemefont{F}}
+\newcommand{\ff}{\schemefont{FF}}
+\newcommand{\fff}{{\cal F}}
+\newcommand{\se}{\schemefont{se}}
+\newcommand{\pke}{\schemefont{pke}}
+\newcommand{\ske}{\schemefont{ske}}
+\newcommand{\fpke}{\schemefont{fpke}}
+
+
+\newcommand{\fprff}{\algfont{f}}
+
+\newcommand{\prim}{\primfont{P}}
+\newcommand{\adv}{\advfont{Adv}}
+
+
+\newcommand{\gamefont}[1]{\mathrm{#1}}
+
+\newcommand{\gameG}{\gamefont{G}}
+\newcommand{\gameR}{\gamefont{R}}
+\newcommand{\GSECCA}{\gamefont{SE\mbox{-}CCA}}
+\newcommand{\GSEOTCCA}{\gamefont{SE\mbox{-}OT\mbox{-}CCA}}
+\newcommand{\GOTCCA}{\gamefont{OT\mbox{-}CCA}}
+\newcommand{\GSECPA}{\gamefont{SE\mbox{-}CPA}}
+\newcommand{\GPRF}{\gamefont{PRF}}
+\newcommand{\GwPRF}{\gamefont{wPRF}}
+\newcommand{\GPKECCA}{\gamefont{PKE\mbox{-}CCA}}
+\newcommand{\GRKAPKECCA}{\gamefont{PKE\mbox{-}RKA\mbox{-}CCA}}
+\newcommand{\GRKACCA}{\gamefont{RKA\mbox{-}CCA}}
+\newcommand{\GKEMCCA}{\gamefont{KEM\mbox{-}CCA}}
+\newcommand{\GSig}{\gamefont{Sig}}
+\newcommand{\GSSig}{\gamefont{SSig}}
+\newcommand{\GPRG}{\gamefont{PRG}}
+\newcommand{\GBDDH}{\gamefont{BDDH}}
+\newcommand{\GPRGCR}{\gamefont{ICR}}
+\newcommand{\GIBE}{\gamefont{IBE}}
+\newcommand{\AIBE}{\gamefont{AIBE}}
+\newcommand{\GKTReal}{\gamefont{KTReal}}
+\newcommand{\GKTRand}{\gamefont{KTRand}}
+\newcommand{\GRKReal}{\gamefont{PRFReal}}
+\newcommand{\GRKRand}{\gamefont{PRFRand}}
+\newcommand{\GRKPReal}{\gamefont{RKPRPReal}}
+\newcommand{\GRKPRand}{\gamefont{RKPRPRand}}
+\newcommand{\GPRFReal}{\gamefont{PRFReal}}
+\newcommand{\GPRFRand}{\gamefont{PRFRand}}
+\newcommand{\GPRPReal}{\gamefont{PRPReal}}
+\newcommand{\GPRPRand}{\gamefont{PRPRand}}
+\newcommand{\GPRGReal}{\gamefont{RKGReal}}
+\newcommand{\GPRGRand}{\gamefont{RKGRand}}
+\newcommand{\GAEReal}{\gamefont{AEReal}}
+\newcommand{\GAERand}{\gamefont{AERand}}
+\newcommand{\GRKAAEReal}{\gamefont{RKAAEReal}}
+\newcommand{\GRKAAERand}{\gamefont{RKAAERand}}
+\newcommand{\GPRFidfp}{\gamefont{IDFP}}
+
+\newcommand{\SIGpk}{\varfont{spk}}
+\newcommand{\SIGsk}{\varfont{ssk}}
+\newcommand{\signature}{\sigma}
+
+\newcommand{\queryset}{\mathsf{Qrs}}
+\newcommand{\PKEnew}{\overline{\schemefont{PKE}}}
+\newcommand{\GEnew}{\overline{\schemefont{GE}}}
+\newcommand{\PKEschemenew}{\PKEnew}
+\newcommand{\PKEParGenNew}{\overline{\algfont{\pargen}}}
+\newcommand{\PKEpgnew}{\PKEParGenNew}
+\newcommand{\PKEKeyGenNew}{\overline{\algfont{\keygen}}}
+\newcommand{\PKEkgnew}{\PKEKeyGenNew}
+\newcommand{\PKEEncNew}{\overline{\algfont{\enc}}}
+\newcommand{\PKEencnew}{\PKEEncNew}
+\newcommand{\PKEDecNew}{\overline{\algfont{\dec}}}
+\newcommand{\PKEdecnew}{\PKEDecNew}
+\newcommand{\ciphertextnew}{\overline{\ciphertext}}
+\newcommand{\pknew}{\overline{\pk}}
+\newcommand{\sknew}{\overline{\sk}}
+
+
+
+\newcommand{\Samp}{\mathsf{Samp}}
+
+
+\newcommand{\leakamount}{\mathbf{a}}
+\newcommand{\msgspace}{\ensuremath{\sf MSp}}
+\newcommand{\idspace}{\ensuremath{{\sf USp}}}
+\newcommand{\idspacenew}{\ensuremath{\overline{\sf USp}}}
+\newcommand{\masterkeyspace}{\ensuremath{\sf MasterKey}}
+\newcommand{\userkeyspace}{\ensuremath{\sf UserKey}}
+\newcommand{\pkspace}{\ensuremath{\sf PublicKey}}
+\newcommand{\ciphertextspace}{\ensuremath{\sf Ciphertext}}
+\newcommand{\idset}{\varfont{IDSet}}
+\newcommand{\ciphertextset}{\varfont{CSet}}
+\newcommand{\keywordset}{\varfont{W}}
+\newcommand{\oracleset}{\orfont{Ors}}
+
+\def\msg{\varfont{m}}
+\def\mesgnew{\overline{\varfont{M}}}
+\def\ciphertext{\varfont{C}}
+
+\newcommand{\uid}{\varfont{u}}
+\newcommand{\uidnew}{\overline{\varfont{u}}}
+\newcommand{\mpk}{\mathsf{max}\mbox{-}\mathsf{pk}}
+\newcommand{\msk}{\varfont{s}}
+\newcommand{\usk}{\varfont{dk}}
+\newcommand{\usknew}{\overline{\varfont{dk}}}
+\newcommand{\ctxt}{\varfont{C}}
+\newcommand{\ctxtnew}{\overline{\varfont{C}}}
+\newcommand{\IBE}{\schemefont{IBE}}
+\newcommand{\IBEnew}{\overline{\schemefont{IBE}}}
+\newcommand{\mskspace}{{\cal S}}
+%\newcommand{\kg}{{\cal K}}
+\newcommand{\kg}{\mathsf{Kg}}
+\newcommand{\kgnew}{\overline{{\cal K}}}
+%\newcommand{\pg}{{\cal P}}
+\newcommand{\pg}{\mathsf{Pg}}
+\newcommand{\Enc}{\enc}
+\newcommand{\Encnew}{\encnew}
+\newcommand{\Dec}{\decc}
+\newcommand{\Decnew}{\deccnew}
+
+
+
+\newcommand{\idsim}{\mathsf{IdS}}
+\newcommand{\kdsim}{\mathsf{EnS}}
+\newcommand{\encsim}{\mathsf{KdS}}
+
+\newcommand{\constphi}{\Phi_{\mathrm{c}}}
+
+\newcommand{\wPRF}{\schemefont{wPRF}}
+\newcommand{\owPRF}{\overline{\schemefont{wPRF}}}
+\newcommand{\PRFkg}{{\cal K}}
+\newcommand{\oPRFkg}{\overline{{\cal K}}}
+\newcommand{\PRFpg}{{\cal P}}
+\newcommand{\oPRFpg}{\overline{{\cal P}}}
+\newcommand{\PRFEv}{{\cal F}}
+\newcommand{\oPRFEv}{\overline{{\cal F}}}
+\newcommand{\PRFpars}{\pi}
+\newcommand{\oPRFpars}{\overline{\pi}}
+\newcommand{\PRFkey}{K}
+\newcommand{\oPRFkey}{\overline{K}}
+
+\newcommand{\deScheme}{\schemefont{DE}}
+\newcommand{\DEkg}{\schalg{DE}{Kg}}
+\newcommand{\DEenc}{\schalg{DE}{Enc}}
+\newcommand{\DEdec}{\schalg{DE}{Dec}}
+\newcommand{\deSchemebad}{\schemefont{DE_{bad}}}
+\newcommand{\DEbadkg}{\schalg{DE_{bad}}{Kg}}
+\newcommand{\DEbadenc}{\schalg{DE_{bad}}{Enc}}
+\newcommand{\DEbaddec}{\schalg{DE_{bad}}{Dec}}
+\newcommand{\reScheme}{\schemefont{RE}}
+\newcommand{\REkg}{\schalg{RE}{Kg}}
+\newcommand{\REenc}{\schalg{RE}{Enc}}
+\newcommand{\REdec}{\schalg{RE}{Dec}}
+\newcommand{\RErec}{\schalg{RE}{Rec}}
+\newcommand{\ewh}{\mathsf{EwH}}
+
+
+\newcommand{\leScheme}{\schemefont{LE}}
+\newcommand{\LEikg}{\schalg{LE}{IKg}}
+\newcommand{\LElkg}{\schalg{LE}{LKg}}
+\newcommand{\LEenc}{\schalg{LE}{Enc}}
+\newcommand{\LEdec}{\schalg{LE}{Dec}}
+
+\newcommand{\ABNscheme}{\schemefont{NLE}}
+\newcommand{\ABNenc}{\schalg{NLE}{Enc}}
+\newcommand{\ABNdec}{\schalg{NLE}{Dec}}
+
+
+\newcommand{\huid}{\uid} %  {\vectorfont{id}}
+\newcommand{\first}[2]{#1|_{#2}}
+\newcommand{\parent}[1]{\mathrm{par}(#1)}
+\newcommand{\level}[1]{|#1|}
+\newcommand{\diff}{\mathrm{diff}}
+\newcommand{\anc}{\mathrm{anc}}
+\newcommand{\levels}{L}
+\newcommand{\RealProb}[1]{{\Pr{\textstyle_\textrm{R}} \left[\,{#1}\,\right]}}
+\newcommand{\RealCondProb}[2]{{\Pr{\textstyle_\textrm{R}}} \left[\: #1\:\left|\right.\:#2\:\right]}
+\newcommand{\SimProb}[1]{{\Pr{\textstyle_{\advB}} \left[\,{#1}\,\right]}}
+\newcommand{\SimCondProb}[2]{{\Pr{\textstyle_{\advB}} \left[\:#1\:\left|\right.\:#2\:\right]}}
+
+\def\CONSIST{CONSIST}
+\newcommand{\FIND}{{\constfont{find}}}
+\newcommand{\GUESS}{{\constfont{guess}}}
+\newcommand{\ATK}{\ensuremath{\notionfont{ATK}}}
+\newcommand{\CPA}{\ensuremath{\notionfont{CPA}}}
+\newcommand{\CCA}{\ensuremath{\notionfont{CCA}}}
+\newcommand{\PROP}{\notionfont{PROP}}
+\newcommand{\IND}{\ensuremath{\notionfont{IND}}}
+\newcommand{\ANON}{\ensuremath{\notionfont{ANON}}}
+\newcommand{\INDCPA}{\ensuremath{\notionfont{IND\mbox{-}CPA}}}
+\newcommand{\INDCCA}{\ensuremath{\notionfont{IND\mbox{-}CCA}}}
+\newcommand{\NMCPA}{\ensuremath{\notionfont{NM\mbox{-}CPA}}}
+\newcommand{\NMCCA}{\ensuremath{\notionfont{NM\mbox{-}CCA}}}
+\newcommand{\INDATK}{\ensuremath{\notionfont{IND\mbox{-}ATK}}}
+\newcommand{\INDATKIK}{\ensuremath{\notionfont{IND\mbox{-}ATK\mbox{-}KI}}}
+\newcommand{\ANONCPA}{\ensuremath{\notionfont{ANO\mbox{-}CPA}}}
+\newcommand{\ANONCCA}{\ensuremath{\notionfont{ANO\mbox{-}CCA}}}
+\newcommand{\AICPA}{\ensuremath{\notionfont{AI\mbox{-}CPA}}}
+\newcommand{\AICCA}{\ensuremath{\notionfont{AI\mbox{-}CCA}}}
+\newcommand{\ANONATK}{\ensuremath{\notionfont{ANO\mbox{-}ATK}}}
+\newcommand{\AIATK}{\ensuremath{\notionfont{AI\mbox{-}ATK}}}
+\newcommand{\PROPATK}{\ensuremath{\notionfont{PROP\mbox{-}ATK}}}
+\newcommand{\WROB}{\ensuremath{\notionfont{WROB}}}
+\newcommand{\SROB}{\ensuremath{\notionfont{SROB}}}
+\newcommand{\AI}{\ensuremath{\notionfont{AI}}}
+\newcommand{\WROBCPA}{\ensuremath{\notionfont{WROB\mbox{-}CPA}}}
+\newcommand{\WROBCCA}{\ensuremath{\notionfont{WROB\mbox{-}CCA}}}
+\newcommand{\WROBATK}{\ensuremath{\notionfont{WROB\mbox{-}ATK}}}
+\newcommand{\SROBCPA}{\ensuremath{\notionfont{SROB\mbox{-}CPA}}}
+\newcommand{\SROBCCA}{\ensuremath{\notionfont{SROB\mbox{-}CCA}}}
+\newcommand{\SROBATK}{\ensuremath{\notionfont{SROB\mbox{-}ATK}}}
+\newcommand{\XROBATK}{\ensuremath{\notionfont{XROB\mbox{-}ATK}}}
+\newcommand{\XROBCCA}{\ensuremath{\notionfont{XROB\mbox{-}CCA}}}
+\newcommand{\INDIDCPA}{\ensuremath{\notionfont{IND\mbox{-}CPA}}}
+\newcommand{\INDIDCCA}{\ensuremath{\notionfont{IND\mbox{-}CCA}}}
+\newcommand{\INDIDATK}{\ensuremath{\notionfont{IND\mbox{-}ATK}}}
+\newcommand{\ANONIDCPA}{\ensuremath{\notionfont{ANO\mbox{-}CPA}}}
+\newcommand{\ANONIDCCA}{\ensuremath{\notionfont{ANO\mbox{-}CCA}}}
+\newcommand{\ANONIDATK}{\ensuremath{\notionfont{ANO\mbox{-}ATK}}}
+\newcommand{\ANONIDRECPA}{\ensuremath{\notionfont{ANO\mbox{-}RE\mbox{-}CPA}}}
+\newcommand{\ANONIDRECCA}{\ensuremath{\notionfont{ANO\mbox{-}RE\mbox{-}CCA}}}
+\newcommand{\INDPEKSCPA}{\ensuremath{\notionfont{IND\mbox{-}CPA}}}
+\newcommand{\INDPEKSCCA}{\ensuremath{\notionfont{IND\mbox{-}CCA}}}
+\newcommand{\INDPEKSATK}{\ensuremath{\notionfont{IND\mbox{-}ATK}}}
+\newcommand{\INDCMTCPA}{\ensuremath{\notionfont{HIDE}}}
+\newcommand{\BINDCMTCPA}{\ensuremath{\notionfont{BIND}}}
+\newcommand{\IBECONSIST}{\ensuremath{\notionfont{\CONSIST}}}
+\newcommand{\PEKSCONSIST}{\ensuremath{\notionfont{\CONSIST}}}
+\newcommand{\CMTCOPY}{\ensuremath{\notionfont{COPY}}}
+
+% KP 
+\newcommand{\RKACCA}{\ensuremath{\notionfont{RKA\mbox{-}CCA}}}
+\newcommand{\rkacca}{\ensuremath{\notionfont{rka\mbox{-}cca}}}
+
+\newcommand{\indabit}{\mbox{}\hspace{1em}}
+
+\def\cmt{cmt}
+\def\ibe{ibe}
+\def\peks{peks}
+\def\consist{consist}
+\newcommand{\atk}{\notionfont{atk}}
+\newcommand{\cpa}{\notionfont{cpa}}
+\newcommand{\cca}{\notionfont{cca}}
+\newcommand{\prop}{\notionfont{prop}}
+\newcommand{\ind}{\notionfont{ind}}
+\newcommand{\anon}{\notionfont{ano}}
+\newcommand{\wrob}{\notionfont{wrob}}
+\newcommand{\srob}{\notionfont{srob}}
+\newcommand{\indcpa}{{\notionfont{ind\mbox{-}cpa}}}
+\newcommand{\indcpab}{{\notionfont{ind\mbox{-}cpa\mbox{-}b}}}
+\newcommand{\indcpal}{{\notionfont{ind\mbox{-}cpa\mbox{-}0}}}
+\newcommand{\indcpar}{{\notionfont{ind\mbox{-}cpa\mbox{-}1}}}
+\newcommand{\indcca}{{\notionfont{ind\mbox{-}cca}}}
+\newcommand{\indccab}{{\notionfont{ind\mbox{-}cca\mbox{-}b}}}
+\newcommand{\indccal}{{\notionfont{ind\mbox{-}cca\mbox{-}0}}}
+\newcommand{\indccar}{{\notionfont{ind\mbox{-}cca\mbox{-}1}}}
+\newcommand{\indatk}{{\notionfont{ind\mbox{-}atk}}}
+\newcommand{\indatkb}{{\notionfont{ind\mbox{-}atk\mbox{-}b}}}
+\newcommand{\indatkl}{{\notionfont{ind\mbox{-}atk\mbox{-}0}}}
+\newcommand{\indatkr}{{\notionfont{ind\mbox{-}atk\mbox{-}1}}}
+\newcommand{\anoncpa}{{\notionfont{\anon\mbox{-}cpa}}}
+\newcommand{\anoncpab}{{\notionfont{\anon\mbox{-}cpa\mbox{-}b}}}
+\newcommand{\anoncpal}{{\notionfont{\anon\mbox{-}cpa\mbox{-}0}}}
+\newcommand{\anoncpar}{{\notionfont{\anon\mbox{-}cpa\mbox{-}1}}}
+\newcommand{\anoncca}{{\notionfont{\anon\mbox{-}cca}}}
+\newcommand{\anonccab}{{\notionfont{\anon\mbox{-}cca\mbox{-}b}}}
+\newcommand{\anonccal}{{\notionfont{\anon\mbox{-}cca\mbox{-}0}}}
+\newcommand{\anonccar}{{\notionfont{\anon\mbox{-}cca\mbox{-}1}}}
+\newcommand{\ai}{{\notionfont{ai}}}
+\newcommand{\anonatk}{{\notionfont{\anon\mbox{-}atk}}}
+\newcommand{\anonatkb}{{\notionfont{\anon\mbox{-}atk\mbox{-}b}}}
+\newcommand{\anonatkl}{{\notionfont{\anon\mbox{-}atk\mbox{-}0}}}
+\newcommand{\anonatkr}{{\notionfont{\anon\mbox{-}atk\mbox{-}1}}}
+\newcommand{\wrobcpa}{{\notionfont{\wrob\mbox{-}cpa}}}
+\newcommand{\wrobcca}{{\notionfont{\wrob\mbox{-}cca}}}
+\newcommand{\wrobatk}{{\notionfont{\wrob\mbox{-}atk}}}
+\newcommand{\srobcpa}{{\notionfont{\srob\mbox{-}cpa}}}
+\newcommand{\srobcca}{{\notionfont{\srob\mbox{-}cca}}}
+\newcommand{\srobatk}{{\notionfont{\srob\mbox{-}atk}}}
+\newcommand{\indidcpa}{{\notionfont{ind\mbox{-}cpa}}}
+\newcommand{\indidcpab}{{\notionfont{ind\mbox{-}cpa\mbox{-}b}}}
+\newcommand{\indidcpal}{{\notionfont{ind\mbox{-}cpa\mbox{-}0}}}
+\newcommand{\indidcpar}{{\notionfont{ind\mbox{-}cpa\mbox{-}1}}}
+\newcommand{\indidcca}{{\notionfont{ind\mbox{-}cca}}}
+\newcommand{\indidccab}{{\notionfont{ind\mbox{-}cca\mbox{-}b}}}
+\newcommand{\indidccal}{{\notionfont{ind\mbox{-}cca\mbox{-}0}}}
+\newcommand{\indidccar}{{\notionfont{ind\mbox{-}cca\mbox{-}1}}}
+\newcommand{\indidatk}{{\notionfont{ind\mbox{-}atk}}}
+\newcommand{\indidatkb}{{\notionfont{ind\mbox{-}atk\mbox{-}b}}}
+\newcommand{\indidatkl}{{\notionfont{ind\mbox{-}atk\mbox{-}0}}}
+\newcommand{\indidatkr}{{\notionfont{ind\mbox{-}atk\mbox{-}1}}}
+\newcommand{\anonidcpa}{{\notionfont{ano\mbox{-}cpa}}}
+\newcommand{\anonidcpab}{{\notionfont{ano\mbox{-}cpa\mbox{-}b}}}
+\newcommand{\anonidcpal}{{\notionfont{ano\mbox{-}cpa\mbox{-}0}}}
+\newcommand{\anonidcpar}{{\notionfont{ano\mbox{-}cpa\mbox{-}1}}}
+\newcommand{\anonidcca}{{\notionfont{ano\mbox{-}cca}}}
+\newcommand{\anonidccab}{{\notionfont{ano\mbox{-}cca\mbox{-}b}}}
+\newcommand{\anonidccal}{{\notionfont{ano\mbox{-}cca\mbox{-}0}}}
+\newcommand{\anonidccar}{{\notionfont{ano\mbox{-}cca\mbox{-}1}}}
+\newcommand{\anonidatk}{{\notionfont{ano\mbox{-}atk}}}
+\newcommand{\anonidatkb}{{\notionfont{ano\mbox{-}atk\mbox{-}b}}}
+\newcommand{\anonidatkl}{{\notionfont{ano\mbox{-}atk\mbox{-}0}}}
+\newcommand{\anonidatkr}{{\notionfont{ano\mbox{-}atk\mbox{-}1}}}
+\newcommand{\anonidre}{{\notionfont{ano\mbox{-}re}}}
+\newcommand{\anonidreb}{{\notionfont{ano\mbox{-}re\mbox{-}b}}}
+\newcommand{\anonidrel}{{\notionfont{ano\mbox{-}re\mbox{-}0}}}
+\newcommand{\anonidrer}{{\notionfont{ano\mbox{-}re\mbox{-}1}}}
+\newcommand{\propidcpa}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cpa}}}
+\newcommand{\propidcpab}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cpa\mbox{-}b}}}
+\newcommand{\propidcpal}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cpa\mbox{-}0}}}
+\newcommand{\propidcpar}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cpa\mbox{-}1}}}
+\newcommand{\propidcca}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cca}}}
+\newcommand{\propidccab}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cca\mbox{-}b}}}
+\newcommand{\propidccal}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cca\mbox{-}0}}}
+\newcommand{\propidccar}{{\notionfont{\ibe\mbox{-}prop\mbox{-}cca\mbox{-}1}}}
+\newcommand{\propidatk}{{\notionfont{\ibe\mbox{-}prop\mbox{-}atk}}}
+\newcommand{\propidatkb}{{\notionfont{\ibe\mbox{-}prop\mbox{-}atk\mbox{-}b}}}
+\newcommand{\propidatkl}{{\notionfont{\ibe\mbox{-}prop\mbox{-}atk\mbox{-}0}}}
+\newcommand{\propidatkr}{{\notionfont{\ibe\mbox{-}prop\mbox{-}atk\mbox{-}1}}}
+\newcommand{\indpekscpa}{{\notionfont{ind\mbox{-}cpa}}}
+\newcommand{\indpekscpab}{{\notionfont{ind\mbox{-}cpa\mbox{-}b}}}
+\newcommand{\indpekscpal}{{\notionfont{ind\mbox{-}cpa\mbox{-}0}}}
+\newcommand{\indpekscpar}{{\notionfont{ind\mbox{-}cpa\mbox{-}1}}}
+\newcommand{\indpekscca}{{\notionfont{ind\mbox{-}cca}}}
+\newcommand{\indpeksccab}{{\notionfont{ind\mbox{-}cca\mbox{-}b}}}
+\newcommand{\indpeksccal}{{\notionfont{ind\mbox{-}cca\mbox{-}0}}}
+\newcommand{\indpeksccar}{{\notionfont{ind\mbox{-}cca\mbox{-}1}}}
+\newcommand{\indpeksatk}{{\notionfont{ind\mbox{-}atk}}}
+\newcommand{\indpeksatkb}{{\notionfont{ind\mbox{-}atk\mbox{-}b}}}
+\newcommand{\indpeksatkl}{{\notionfont{ind\mbox{-}atk\mbox{-}0}}}
+\newcommand{\indpeksatkr}{{\notionfont{ind\mbox{-}atk\mbox{-}1}}}
+\newcommand{\indcmtcpa}{{\notionfont{hide}}}
+\newcommand{\indcmtcpab}{{\notionfont{hide\mbox{-}b}}}
+\newcommand{\indcmtcpal}{{\notionfont{hide\mbox{-}0}}}
+\newcommand{\indcmtcpar}{{\notionfont{hide\mbox{-}1}}}
+\newcommand{\bindcmtcpa}{{\notionfont{bind}}}
+\newcommand{\bindcmtcpab}{{\notionfont{bind\mbox{-}b}}}
+\newcommand{\bindcmtcpal}{{\notionfont{bind\mbox{-}0}}}
+\newcommand{\bindcmtcpar}{{\notionfont{bind\mbox{-}1}}}
+\newcommand{\copycmtcpa}{{\notionfont{copy}}}
+\newcommand{\copycmtcpab}{{\notionfont{copy\mbox{-}b}}}
+\newcommand{\copycmtcpal}{{\notionfont{copy\mbox{-}0}}}
+\newcommand{\copycmtcpar}{{\notionfont{copy\mbox{-}1}}}
+
+\newcommand{\paro}{{\notionfont{pa\mbox{-}ro}}}
+\newcommand{\pa}{{\notionfont{pa}}}
+
+
+\newcommand{\ibeconsist}{{\notionfont{\ibe\mbox{-}\consist}}}
+\newcommand{\peksconsist}{{\notionfont{\consist}}}
+%
+\newcommand{\ExpINDCPA}[2]{\Exp^{\indcpa}_{#1}(#2)}
+\newcommand{\ExpINDCPAB}[2]{\Exp^{\indcpab}_{#1}(#2)}
+\newcommand{\ExpINDCPAL}[2]{\Exp^{\indcpal}_{#1}(#2)}
+\newcommand{\ExpINDCPAR}[2]{\Exp^{\indcpar}_{#1}(#2)}
+\newcommand{\AdvINDCPA}[2]{\Adv^{\indcpa}_{#1}(#2)}
+\newcommand{\ExpINDCCA}[2]{\Exp^{\indcca}_{#1}(#2)}
+\newcommand{\ExpINDCCAB}[2]{\Exp^{\indccab}_{#1}(#2)}
+\newcommand{\ExpINDCCAL}[2]{\Exp^{\indccal}_{#1}(#2)}
+\newcommand{\ExpINDCCAR}[2]{\Exp^{\indccar}_{#1}(#2)}
+\newcommand{\AdvINDCCA}[2]{\Adv^{\indcca}_{#1}(#2)}
+\newcommand{\ExpINDATK}[2]{\Exp^{\indatk}_{#1}(#2)}
+\newcommand{\ExpINDATKB}[2]{\Exp^{\indatkb}_{#1}(#2)}
+\newcommand{\ExpINDATKL}[2]{\Exp^{\indatkl}_{#1}(#2)}
+\newcommand{\ExpINDATKR}[2]{\Exp^{\indatkr}_{#1}(#2)}
+\newcommand{\AdvINDATK}[2]{\Adv^{\indatk}_{#1}(#2)}
+
+\newcommand{\ExpANONCPA}[2]{\Exp^{\anoncpa}_{#1}(#2)}
+\newcommand{\ExpANONCPAB}[2]{\Exp^{\anoncpab}_{#1}(#2)}
+\newcommand{\ExpANONCPAL}[2]{\Exp^{\anoncpal}_{#1}(#2)}
+\newcommand{\ExpANONCPAR}[2]{\Exp^{\anoncpar}_{#1}(#2)}
+\newcommand{\AdvANONCPA}[2]{\Adv^{\anoncpa}_{#1}(#2)}
+\newcommand{\ExpANONCCA}[2]{\Exp^{\anoncca}_{#1}(#2)}
+\newcommand{\ExpANONCCAB}[2]{\Exp^{\anonccab}_{#1}(#2)}
+\newcommand{\ExpANONCCAL}[2]{\Exp^{\anonccal}_{#1}(#2)}
+\newcommand{\ExpANONCCAR}[2]{\Exp^{\anonccar}_{#1}(#2)}
+\newcommand{\AdvANONCCA}[2]{\Adv^{\anoncca}_{#1}(#2)}
+\newcommand{\ExpANONATK}[2]{\Exp^{\anonatk}_{#1}(#2)}
+\newcommand{\ExpANONATKB}[2]{\Exp^{\anonatkb}_{#1}(#2)}
+\newcommand{\ExpANONATKL}[2]{\Exp^{\anonatkl}_{#1}(#2)}
+\newcommand{\ExpANONATKR}[2]{\Exp^{\anonatkr}_{#1}(#2)}
+\newcommand{\AdvANONATK}[2]{\Adv^{\anonatk}_{#1}(#2)}
+\newcommand{\AdvAI}[2]{\Adv^{\ai}_{#1}(#2)}
+
+\newcommand{\CollPKE}[1]{\Coll_{#1}}
+
+\newcommand{\PA}{\ensuremath{\textrm{PA}}}
+
+
+
+\newcommand{\AdvINDIDCPA}[1]{\Adv^{\indidcpa}_{#1}}
+\newcommand{\ExpINDIDCCA}[2]{\Exp^{\indidcca}_{#2}}
+\newcommand{\ExpINDIDCCAB}[2]{\Exp^{\indidccab}_{#2}}
+\newcommand{\ExpINDIDCCAL}[2]{\Exp^{\indidccal}_{#2}}
+\newcommand{\ExpINDIDCCAR}[2]{\Exp^{\indidccar}_{#2}}
+\newcommand{\AdvINDIDCCA}[1]{\Adv^{\indidcca}_{#1}}
+\newcommand{\ExpINDIDATK}[2]{\Exp^{\indidatk}_{#2}}
+\newcommand{\ExpINDIDATKB}[2]{\Exp^{\indidatkb}_{#2}}
+\newcommand{\ExpINDIDATKL}[2]{\Exp^{\indidatkl}_{#2}}
+\newcommand{\ExpINDIDATKR}[2]{\Exp^{\indidatkr}_{#2}}
+\newcommand{\AdvINDIDATK}[1]{\Adv^{\indidatk}_{#1}}
+
+
+\newcommand{\qid}{{q_{\mathrm{id}}}}
+\newcommand{\qdec}{{q_{\mathrm{dec}}}}
+\newcommand{\qtr}{{q_{\mathrm{trap}}}}
+\newcommand{\qtest}{{q_{\mathrm{test}}}}
+
+% Definitions for the section on RO constructions
+
+\newcommand{\bdh}{{\notionfont{bdh}}}
+\newcommand{\bddh}{{\notionfont{bddh}}}
+\newcommand{\ddh}{{\notionfont{ddh}}}
+\newcommand{\dlin}{{\notionfont{dlin}}}
+
+\newcommand{\ABORT}{\eventfont{Abort}}
+\newcommand{\ASK}{\eventfont{Ask}}
+\newcommand{\AWINS}{\eventfont{\advA\ wins}}
+\newcommand{\htate}{\pairing}
+\newcommand{\pairing}{\mathbf{e}}
+\newcommand{\bin}{\{0,1\}}
+\newcommand{\binrep}{\mathrm{bin}}
+\newcommand{\group}{\mathbb{G}}
+\newcommand{\FullIdent}{\schemefont{FullIdent}}
+\newcommand{\Integers}{\mathbb{Z}}
+\newcommand{\game}{\mathbf{G}}
+
+% Definitions from UCSD paper
+
+
+\newcommand{\term}[1]{\textit{#1}}
+
+%\newcommand{\G}{\group}
+\newcommand{\primeorder}{p}
+
+\newcommand{\rv}[1]{\randvarfont{#1}}
+
+\newcommand{\find}{\FIND}
+\newcommand{\guess}{\GUESS}
+
+\newcommand{\schalg}[2]{\mathsf{#1.#2}}
+\newcommand{\DS}{\schemefont{DS}}
+\newcommand{\KES}{\schemefont{KES}}
+\newcommand{\KEE}{\schemefont{KEE}}
+\newcommand{\WS}{\schemefont{WS}}
+\newcommand{\oDS}{\overline{\schemefont{DS}}}
+\newcommand{\DSpg}{\schalg{DS}{Pg}}
+
+\newcommand{\KESkg}{\schalg{KES}{Kg}}
+\newcommand{\KEST}{\schalg{KES}{T}}
+\newcommand{\KESsign}{\schalg{KES}{Sig}}
+\newcommand{\KESVf}{\schalg{KES}{Vf}}
+\newcommand{\KESup}{\schalg{KES}{Up}}
+\newcommand{\KESkl}{\schalg{KES}{kl}}
+\newcommand{\KESml}{\schalg{KES}{ml}}
+
+\newcommand{\KEEkg}{\schalg{KEE}{Kg}}
+\newcommand{\KEET}{\schalg{KEE}{T}}
+\newcommand{\KEEenc}{\schalg{KEE}{Enc}}
+\newcommand{\KEEdec}{\schalg{KEE}{Dec}}
+\newcommand{\KEEup}{\schalg{KEE}{Up}}
+\newcommand{\KEEkl}{\schalg{KEE}{kl}}
+\newcommand{\KEEml}{\schalg{KEE}{ml}}
+
+\newcommand{\WSml}{\schalg{WS}{ml}}
+\newcommand{\WSpg}{\schalg{WS}{Pg}}
+\newcommand{\WSApg}{\schalg{WS}{APg}}
+\newcommand{\DSSimPg}{\schalg{DS}{SimPg}}
+\newcommand{\WSSimPg}{\schalg{WS}{SimPg}}
+\newcommand{\oDSpg}{\overline{{\sf Pg}}}
+\newcommand{\Sign}{\schalg{DS}{Sig}}
+\newcommand{\WSign}{\schalg{WS}{Sig}}
+\newcommand{\DSSimSign}{\schalg{DS}{SimSig}}
+\newcommand{\WSSimSign}{\schalg{WS}{SimSig}}
+\newcommand{\DSSimX}{\schalg{DS}{Ext}}
+\newcommand{\WSSimX}{\schalg{WS}{Ext}}
+\newcommand{\oSign}{\overline{{\sf Sig}}}
+\newcommand{\Ver}{\schalg{DS}{Ver}}
+\newcommand{\WVer}{\schalg{WS}{Vf}}
+\newcommand{\oVer}{\overline{{\sf Vf}}}
+\newcommand{\DSkg}{\schalg{DS}{Kg}}
+\newcommand{\WSkg}{\schalg{WS}{Kg}}
+\newcommand{\DStg}{\schalg{DS}{Tg}}
+\newcommand{\DSVal}{\schalg{DS}{Val}}
+\newcommand{\oDSkg}{\overline{{\sf Kg}}}
+\newcommand{\DSpk}{\mathit{vk}}
+\newcommand{\oDSpk}{\overline{\mathit{vk}}}
+\newcommand{\DSsk}{\mathit{sk}}
+\newcommand{\oDSsk}{\overline{\mathit{sk}}}
+\newcommand{\DSpars}{\pi}
+\newcommand{\oDSpars}{\overline{\pi}}
+\newcommand{\DSpkg}{{\cal T}}
+
+\newcommand{\PRG}{\schemefont{PRG}}
+\newcommand{\PRGpg}{\schalg{PRG}{Ev}}
+\newcommand{\PRGkg}{\schalg{PRG}{Kg}}
+
+\newcommand{\FSE}{\schemefont{FSE}}
+
+\newcommand{\LTDF}{\schemefont{LT}}
+\newcommand{\ABN}{\schemefont{NLT}}
+\newcommand{\ABNLTDF}{\schemefont{NLT}}
+
+\newcommand{\PKE}{\schemefont{PKE}}
+\newcommand{\FPKE}{\schemefont{FPKE}}
+\newcommand{\DPKE}{\schemefont{DE}}
+\newcommand{\DE}{\schemefont{DE}}
+\newcommand{\PKEpg}{\schalg{PKE}{Pg}}
+\newcommand{\oPKEpg}{\overline{{\cal P}}}
+\newcommand{\PKEEnc}{\schalg{PKE}{Enc}}
+\newcommand{\oPKEEnc}{\schalg{\overline{PKE}}{Enc}}
+\newcommand{\PKEDec}{\schalg{PKE}{Dec}}
+\newcommand{\oPKEDec}{\overline{{\cal D}}}
+\newcommand{\PKEkg}{\schalg{PKE}{Kg}}
+\newcommand{\oPKEkg}{\overline{{\cal K}}}
+\newcommand{\PKEpk}{\mathit{ek}}
+\newcommand{\PKEPK}{\schalg{PKE}{PK}}
+\newcommand{\PKESK}{\schalg{PKE}{SK}}
+\newcommand{\oPKEpk}{\overline{\mathit{ek}}}
+\newcommand{\PKEsk}{\mathit{dk}}
+\newcommand{\oPKEsk}{\overline{\mathit{dk}}}
+\newcommand{\PKEpars}{\pi}
+\newcommand{\oPKEpars}{\overline{\pi}}
+
+\newcommand{\SE}{\schemefont{SE}}
+\newcommand{\SEpg}{{\cal P}}
+\newcommand{\SEEnc}{{\cal E}}
+\newcommand{\SEDec}{{\cal D}}
+\newcommand{\SEkg}{{\cal K}}
+\newcommand{\SEkey}{K}
+\newcommand{\SEpars}{\pi}
+
+\newcommand{\KEM}{\schemefont{KEM}}
+\newcommand{\KEMkg}{{\cal K}}
+\newcommand{\KEMEnc}{{\cal E}}
+\newcommand{\KEMDec}{{\cal D}}
+\newcommand{\KEMpk}{\mathit{ek}}
+\newcommand{\KEMsk}{\mathit{dk}}
+\newcommand{\KEMpars}{\pi}
+\newcommand{\BMWKEM}{\schemefont{BMW\mbox{-}KEM}}
+
+
+\newcommand{\AdvBDDH}[1]{\Adv^{\bddh}_{#1}}
+\newcommand{\AdvBDH}[2]{\Adv^{\bdh}_{#1}(#2)}
+\newcommand{\AdvDDH}[2]{\Adv^{\ddh}_{#1}(#2)}
+\newcommand{\AdvDLin}[2]{\Adv^{\dlin}_{#1}(#2)}
+
+
+
+
+\newcommand{\Comp}[1]{\overline{#1}}
+
+
+\newcommand{\deftabs}{1..\=2..\=3..\=4..\=\kill}
+\newcommand{\paramgen}{\mathcal{G}}
+%\newcommand{\U}{\mathslbf{U}}
+
+\newcommand{\queries}{\mathcal{Q}}
+\newcommand{\queriesHthree}{\mathcal{X}}
+
+\newcommand{\negl}{\ensuremath{\mathrm{neg}}}
+
+\newcommand{\BIG}{\eventfont{Big}}
+\newcommand{\BADc}{\eventfont{Bad}}
+\newcommand{\abort}{\eventfont{Abort}}
+% \newcommand{\win}{\eventfont{Win}}
+\newcommand{\K}{\rv{K}}
+\newcommand{\T}{\rv{T}}
+\newcommand{\bc}{\rv{c}}
+\newcommand{\bt}{\rv{t}}
+%\newcommand{\C}{\rv{C}}
+%\newcommand{\keys}{\mathsf{Keys}}
+\newcommand{\lt}{\mathsf{Lt}}
+\newcommand{\hy}{\mathsf{Hw}}
+
+\newcommand{\Tinstance}{T_\textrm{inst}}
+\newcommand{\Twitness}{T_\textrm{wit}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\classT}{\mathcal{T}}
+
+\newcommand{\ID}{\mathsf{ID}}
+%\newcommand{\Phiconst}{\Phi^{\mathsf{const}}}
+\newcommand{\St}{\st}
+
+\newcommand{\LR}{\mathsf{LR}}
+
+\def\savedstate{\st}
+
+\newcommand{\found}{\varfont{found}}
+%\newcommand{\vecp}{\vectorfont{p}}
+%\newcommand{\vecr}{\vectorfont{r}}
+
+%\newcommand{\veca}{\vectorfont{a}}
+\newcommand{\vect}{\vectorfont{t}}
+
+
+
+\addtolength{\belowcaptionskip}{-2mm}
+\addtolength{\abovecaptionskip}{-3mm}
+\addtolength{\topsep}{-1mm}
+
+\newcommand{\eqrob}{\ensuremath{\notionfont{rob_=}}}
+\newcommand{\rejrob}{\ensuremath{\notionfont{rob_\bot}}}
+\newcommand{\cp}{\ensuremath{\notionfont{cp}}}
+\newcommand{\cc}{\ensuremath{\notionfont{cc}}}
+\newcommand{\eqrobcp}{\ensuremath{\eqrob\mbox{-}\cp}}
+\newcommand{\eqrobcc}{\ensuremath{\eqrob\mbox{-}\cc}}
+\newcommand{\rejrobcp}{\ensuremath{\rejrob\mbox{-}\cp}}
+\newcommand{\rejrobcc}{\ensuremath{\rejrob\mbox{-}\cc}}
+
+%% Game-related macros
+\newcommand{\procfont}[1]{\mathsc{#1}}
+\newcommand{\tablefont}[1]{\mathsf{#1}}
+\newcommand{\Initialize}{\procfont{Initialize}}
+\newcommand{\Finalize}{\procfont{Finalize}}
+\newcommand{\FinalizeCodeNoarg}{\underline{\textrm{proc} $\Finalize$}}
+\newcommand{\Onquery}[2]{\underline{\textrm{proc} $#1(#2)$}}
+\newcommand{\InitializeCode}{\underline{\textrm{proc} $\Initialize$}}
+\newcommand{\FinalizeCode}[1]{\underline{\textrm{proc} $\Finalize(#1)$}}
+
+\newcommand{\zerovec}{\mathbf{0}}
+
+\newcommand{\KeySetup}{\procfont{KeySetup}}
+\newcommand{\RKFn}{\procfont{Fn}}
+\newcommand{\RKwFn}{\procfont{RKwFn}}
+\newcommand{\Fn}{\procfont{Fn}}
+\newcommand{\GFn}{\procfont{GFn}}
+\newcommand{\KTFn}{\procfont{KTFn}}
+\newcommand{\EncO}{\procfont{Enc}}
+\newcommand{\MsgO}{\procfont{Msg}}
+\newcommand{\FuncO}{\procfont{Func}}
+\newcommand{\DecO}{\procfont{Dec}}
+
+\newcommand{\procHash}{\procfont{H}}
+\newcommand{\procTD}{\procfont{TD}}
+\newcommand{\procTest}{\procfont{Test}}
+\newcommand{\procLR}{\procfont{LR}}
+\newcommand{\procLRSim}{\procfont{LRSim}}
+\newcommand{\procEnc}{\procfont{Enc}}
+\newcommand{\procDec}{\procfont{Dec}}
+\newcommand{\procDecSim}{\procfont{DecSim}}
+\newcommand{\procMakeKey}{\procfont{MkKey}}
+\newcommand{\procMakeKeySim}{\procfont{MkKeySim}}
+\newcommand{\procEK}{\procfont{GetEK}}
+\newcommand{\procDK}{\procfont{GetDK}}
+\newcommand{\procCom}{\procfont{Com}}
+\newcommand{\procExt}{\procfont{Ext}}
+\newcommand{\procEval}{\procfont{Eval}}
+\newcommand{\procChal}{\procfont{Challenge}}
+\newcommand{\goutputs}{\:{\Rightarrow}\:}
+%\newcommand{\outputs}{\textrm{ outputs }}
+\newcommand{\outputs}{\Rightarrow}
+\newcommand{\wins}{\textrm{ wins}}
+\newcommand{\true}{\mathsf{true}}
+\newcommand{\out}{\mathsf{out}}
+\newcommand{\false}{\mathsf{false}}
+\newcommand{\AND}{\;\wedge\;}
+\newcommand{\bad}{\mathsf{bad}}
+\newcommand{\setsbad}{\mbox{ sets }\mathsf{bad}}
+\newcommand{\andnotbad}{\wedge\overline{\bad}}
+\newcommand{\Good}{\mathsf{Good}}
+\newcommand{\win}{\mathsf{win}}
+\newcommand{\Gm}{\textnormal{G}}
+\newcommand{\HGm}{\textnormal{H}}
+\newcommand{\famsch}{\mathsf{\Pi}}
+\newcommand{\famm}{\mathsf{\Gamma}}
+
+\newcommand{\fn}{\scriptsize}
+
+\newcommand{\gpone}{\mathbf{1}}
+
+\newcommand{\LDom}{\mathsf{LDom}}
+\newcommand{\LRng}{\mathsf{LRng}}
+
+\newcommand{\PRGDom}{\mathsf{PRGDom}}
+\newcommand{\PRGRng}{\mathsf{PRGRng}}
+
+\newcommand{\ABNDom}{\mathsf{NLTDom}}
+\newcommand{\ABNRng}{\mathsf{NLTRng}}
+\newcommand{\ABNTag}{\mathsf{NLTTag}}
+
+\newcommand{\ABNLTDFDom}{\mathsf{NLTDom}}
+\newcommand{\ABNLTDFRng}{\mathsf{NLTRng}}
+\newcommand{\ABNLTDFTag}{\mathsf{NLTTag}}
+
+\newcommand{\ABNLEDom}{\mathsf{NLEDom}}
+\newcommand{\ABNLERng}{\mathsf{NLERng}}
+\newcommand{\ABNLETag}{\mathsf{NLETag}}
+
+
+\newcommand{\TCRDom}{\mathsf{TCRDom}}
+\newcommand{\TCRRng}{\mathsf{TCRRng}}
+
+
+%% Stuff added by David
+\newcommand{\WatIBE}{\schemefont{WIBE}}
+\newcommand{\GroupScheme}{\mathcal{GS}}
+\newcommand{\newff}{\PRF'}
+\newcommand{\newpg}{\PRFpg'}
+\newcommand{\newkg}{\PRFkg'}
+\newcommand{\newfff}{\PRFEv'}
+\newcommand{\newpars}{\pars'}
+\newcommand{\HDom}{\mathsf{HDom}}
+\newcommand{\HRng}{\mathsf{HRng}}
+\newcommand{\GDom}{\mathsf{GDom}}
+\newcommand{\GRng}{\mathsf{GRng}}
+\newcommand{\newDom}{\Dom'}
+\newcommand{\newRng}{\Rng'}
+\newcommand{\GKFP}{\gamefont{KFP}}
+\newcommand{\GCR}{\gamefont{CR}}
+\newcommand{\hashfam}{\algfont{H}}
+\newcommand{\prgfam}{\algfont{G}}
+\newcommand{\hkg}{\algfont{HKg}}
+\newcommand{\gkg}{\algfont{GKg}}
+\newcommand{\tcrfam}{\algfont{TCR}}
+\newcommand{\tcrkg}{\algfont{TCRKg}}
+\newcommand{\hkey}{L}
+\newcommand{\hpg}{\algfont{HPg}}
+\newcommand{\hash}{\algfont{h}}
+\newcommand{\prgg}{\algfont{g}}
+\newcommand{\tcr}{\algfont{tcr}}
+\newcommand{\wkfp}{{\algfont{Kfp}}}
+\newcommand{\idfp}{{\algfont{IKfp}}}
+\newcommand{\rkaspec}{\Phi}
+\newcommand{\phipg}{{\cal P}}
+\newcommand{\opg}{\overline{{\cal P}}}
+\newcommand{\phipars}{\pi}
+\newcommand{\psipg}{\pg_\Psi}
+\newcommand{\psipars}{\pars_\Psi}
+\newcommand{\wprfrka}{{\notionfont{wprf\mbox{-}rka}}}
+\newcommand{\siglabel}{{\notionfont{sig\mbox{-}rka}}}
+\newcommand{\ssiglabel}{{\notionfont{ssig\mbox{-}rka}}}
+\newcommand{\ibelabel}{{\notionfont{ibe}}}
+\newcommand{\iberkalabel}{{\notionfont{ibe-rka}}} %KP
+\newcommand{\ibealabel}{{\notionfont{ibe-au}}} %KP
+
+\newcommand{\pkeccalabel}{{\notionfont{pke\mbox{-}cc\mbox{-}rka}}}
+\newcommand{\secpalabel}{{\notionfont{se\mbox{-}cp\mbox{-}rka}}}
+\newcommand{\seccalabel}{{\notionfont{se\mbox{-}cc\mbox{-}rka}}}
+\newcommand{\AdvwPRFRKA}[2]{\Adv^{\wprfrka}_{#1}(#2)}
+\newcommand{\AdvSig}[2]{\Adv^{\siglabel}_{#1}(#2)}
+\newcommand{\AdvSSig}[2]{\Adv^{\ssiglabel}_{#1}(#2)}
+\newcommand{\AdvIBE}[2]{\Adv^{\ibelabel}_{#1}(#2)}
+\newcommand{\AdvIBERKA}[2]{\Adv^{\iberkalabel}_{#1}(#2)} %KP
+\newcommand{\AdvIBEA}[2]{\Adv^{\ibealabel}_{#1}(#2)} %KP
+
+\newcommand{\AdvPKE}[2]{\Adv^{\pkeccalabel}_{#1}(#2)}
+\newcommand{\AdvSECPA}[2]{\Adv^{\secpalabel}_{#1}(#2)}
+\newcommand{\AdvSECCA}[2]{\Adv^{\seccalabel}_{#1}(#2)}
+\newcommand{\seotccalabel}{{\notionfont{se\mbox{-}ot\mbox{-}cca}}}
+\newcommand{\AdvSEOTCCA}[2]{\Adv^{\seotccalabel}_{#1}(#2)}
+
+\newcommand{\GRKwPRFReal}{\gamefont{RKwPRFReal}}
+\newcommand{\GRKwPRFRand}{\gamefont{RKwPRFRand}}
+\newcommand{\ds}{\mathsf{DS}}
+\newcommand{\MsgR}{\algfont{MsgR}}
+\newcommand{\Msg}{\algfont{Msg}}
+\newcommand{\ksp}{\algfont{Ksp}}
+% \newcommand{\Sign}{\algfont{Sign}}
+% \newcommand{\Ver}{\algfont{Ver}}
+\newcommand{\pkg}{\algfont{PKg}}
+\newcommand{\sig}{s}
+\newcommand{\wsig}{\mathit{ws}}
+\newcommand{\osig}{\overline{\sig}}
+\newcommand{\hashrng}{\mathcal{S}}
+%\newcommand{\col}{\mathsf{Col}}
+\newcommand{\kfp}{{\notionfont{kfp}}}
+\newcommand{\AdvKFP}[2]{\Adv^{\kfp}_{#1}(#2)}
+\newcommand{\gTable}{\tablefont{T}}
+\newcommand{\fTable}{\tablefont{T}}
+\newcommand{\wTable}{\tablefont{WT}}
+\newcommand{\xTable}{\tablefont{S}}
+\newcommand{\hTable}{\tablefont{HT}}
+\newcommand{\addto}{\stackrel{\cup}{\gets}}
+\newcommand{\wset}{\mathcal{W}}
+\newcommand{\xset}{\mathcal{X}}
+\newcommand{\hset}{\mathcal{H}}
+\newcommand{\newPhi}{\Psi}
+\newcommand{\hashkey}{L}
+\newcommand{\hashkeys}{\mathcal{L}}
+\newcommand{\consts}{\mathsf{C}}
+\newcommand{\KDMFn}{\procfont{KDMFn}}
+\newcommand{\prfkdm}{{\notionfont{prf\mbox{-}kdm}}}
+\newcommand{\AdvPRFKDM}[2]{\Adv^{\prfkdm}_{#1}(#2)}
+\newcommand{\GKDMReal}{\gamefont{KDMPRFReal}}
+\newcommand{\GKDMRand}{\gamefont{KDMPRFRand}}
+\newcommand{\GKMreal}{\gamefont{KMReal}}
+\newcommand{\GKMsim}{\gamefont{KMSim}}
+
+\newcommand{\procExpose}{\procfont{Exp}}
+\newcommand{\procLeak}{\procfont{Lk}}
+\newcommand{\procUpdate}{\procfont{Up}}
+
+\newcommand{\procSign}{\procfont{Sign}}
+\newcommand{\procSignSim}{\procfont{SignSim}}
+\newcommand{\procUpdateSim}{\procfont{UpSim}}
+\newcommand{\procExposeSim}{\procfont{ExpSim}}
+\newcommand{\procLeakSim}{\procfont{LkSim}}
+\newcommand{\procFnSim}{\procfont{FnSim}}
+\newcommand{\procVf}{\procfont{Verify}}
+\newcommand{\procKD}{\procfont{KD}}
+\newcommand{\procGen}{\procfont{Gen}}
+\newcommand{\procFn}{\procfont{Fn}}
+
+\newcommand{\verify}{\mathsf{Verify}}
+
+
+\newcommand{\EmptyGraph}{(\emptyset,\emptyset)}
+\newcommand{\INDCIRCCPA}{\ensuremath{\notionfont{IND\mbox{-}CircCPA}}}
+\newcommand{\INDR}{\ensuremath{\notionfont{IND\mbox{-}R}}}
+\newcommand{\INDCYC}{\ensuremath{\notionfont{IND\mbox{-}CYC}}}
+
+
+\newcommand{\ffnew}{\overline{\schemefont{ff}}}
+\newcommand{\ctextlen}{c}
+\newcommand{\CTxts}{\mathsf{Ctxts}}
+\newcommand{\ECoins}{\mathsf{ECoins}}
+\newcommand{\CTxtR}{\mathsf{CtxtR}}
+\newcommand{\msgsp}{\algfont{Msg}}
+\newcommand{\ctxtsp}{\algfont{Ctxt}}
+\newcommand{\tagsp}{\algfont{Tag}}
+\newcommand{\msgspR}{\algfont{MsgR}}
+\newcommand{\lctxtsp}{\algfont{LCtxt}}
+
+\newcommand{\advC}{C}
+\newcommand{\advD}{D}
+\newcommand{\gens}{\mathsf{Gen}}
+\newcommand{\forge}{\mathsf{forge}}
+
+\newcommand{\proc}{\procfont{Proc}}
+\newcommand{\RoR}{\procfont{RoR}}
+\newcommand{\Cyc}{\procfont{Cyc}}
+
+\newcommand{\KeySetupCode}{\underline{\textbf{proc} \procfont{KeySetup}}}
+\newcommand{\FnCode}{\underline{\textbf{proc} \procfont{Fn}}}
+\newcommand{\CycCode}{\underline{\textbf{proc} \procfont{Cyc}}}
+\newcommand{\RoRCode}[1]{\underline{\textbf{proc} \procfont{RoR}({#1})}}
+\newcommand{\DecCode}[1]{\underline{\textbf{proc} \procfont{Dec}({#1})}}
+
+
+\newcommand{\es}{\schemefont{es}}
+\newcommand{\esnew}{\overline{\schemefont{es}}}
+\newcommand{\aenc}{\schemefont{es}}
+\newcommand{\aencnew}{\schemefont{agenc2}}
+\newcommand{\cpaenc}{\schemefont{agenc1}}
+
+\newcommand{\Knew}{\overline{K}}
+\newcommand{\encnew}{\overline{\enc}}
+\newcommand{\deccnew}{\overline{\decc}}
+\newcommand{\AEnew}{\overline{\AE}}
+\newcommand{\Enew}{\overline{E}}
+%\newcommand{\GroupScheme}{\mathcal{GS}}
+\newcommand{\SXDH}{{\notionfont{sxdh}}}
+\newcommand{\oracle}{\mathcal{O}}
+\newcommand{\keys}{\mathcal{K}}
+\newcommand{\keysnew}{\overline{\mathcal{K}}}
+\newcommand{\dom}{\mathcal{D}}
+\newcommand{\domo}{\overline{\mathcal{D}}}
+\newcommand{\domsub}{\mathcal{S}}
+\newcommand{\rng}{\mathcal{R}}
+\newcommand{\Fun}{\mathsf{Fun}}
+\newcommand{\Perm}{\mathsf{Perm}}
+\newcommand{\PF}{\mathsf{PF}}
+
+\newcommand{\pkecca}{{\notionfont{pke\mbox{-}cca}}}
+\newcommand{\AdvPKECCA}[2]{\Adv^{\pkecca}_{#1}(#2)}
+\newcommand{\prgrka}{{\notionfont{prg\mbox{-}rka}}}
+\newcommand{\AdvPRGRKA}[2]{\Adv^{\prgrka}_{#1}(#2)}
+\newcommand{\prfrka}{{\notionfont{prf\mbox{-}rka}}}
+\newcommand{\AdvPRFRKA}[2]{\Adv^{\prfrka}_{#1}(#2)}
+\newcommand{\AdvIDFP}[2]{\Adv^{\notionfont{idfp}}_{#1}(#2)}
+\newcommand{\prfurka}{{\notionfont{prf\mbox{-}urka}}}
+\newcommand{\AdvPRFURKA}[2]{\Adv^{\prfurka}_{#1}(#2)}
+\newcommand{\prprkacpa}{{\notionfont{prp\mbox{-}rkcpa}}}
+\newcommand{\AdvPRPRKA}[2]{\Adv^{\prprkacpa}_{#1}(#2)}
+\newcommand{\prprkacca}{{\notionfont{prp\mbox{-}rka}}}
+\newcommand{\AdvPRPRKAcca}[2]{\Adv^{\prprkacca}_{#1}(#2)}
+\newcommand{\prf}{{\notionfont{prf}}}
+\newcommand{\prp}{{\notionfont{prp}}}
+\newcommand{\prg}{{\notionfont{prg}}}
+\renewcommand{\ae}{{\notionfont{ae}}}
+\newcommand{\aerka}{{\notionfont{ae\mbox{-}rka}}}
+\newcommand{\AdvPRF}[2]{\Adv^{\prf}_{#1}(#2)}
+\newcommand{\AdvPRP}[2]{\Adv^{\prp}_{#1}(#2)}
+\newcommand{\AdvPRG}[2]{\Adv^{\prg}_{#1}(#2)}
+\newcommand{\AdvICR}[2]{\Adv^{\notionfont{icr}}_{#1}(#2)}
+\newcommand{\AdvAE}[2]{\Adv^{\ae}_{#1}(#2)}
+\newcommand{\AdvAERKA}[2]{\Adv^{\aerka}_{#1}(#2)}
+\newcommand{\AdvCR}[2]{\Adv^{{\notionfont{cr}}}_{#1}(#2)}
+\newcommand{\kemcca}{{\notionfont{kem\mbox{-}cca}}}
+\newcommand{\AdvKEMCCA}[2]{\Adv^{\kemcca}_{#1}(#2)}
+\newcommand{\AdvRKACCA}[2]{\Adv^{\rkacca}_{#1}(#2)}
+
+\newcommand{\AdvDBDH}[1]{\Adv^{\notionfont{dbdh}}(#1)}
+%\newcommand{\AdvdDBDH}[1]{\Adv^{\notionfont{\ddbdh}}(#1)}
+\newcommand{\AdvdDBDH}[1]{\Adv^{q\mbox{-}\notionfont{edbdh}}(#1)}
+
+\newcommand{\setup}{\schalg{ST}{Pg}}
+\newcommand{\params}{\varfont{pp}}
+\newcommand{\fparams}{\varfont{fp}}
+\newcommand{\rparams}{\varfont{rp}}
+\newcommand{\aparams}{\varfont{ap}}
+\newcommand{\wparams}{\varfont{wp}}
+\newcommand{\eparams}{\fparams}
+
+
+
+\newcommand{\id}{\mathsf{id}}
+\newcommand{\flip}{\mathsf{flip}}
+
+\newcommand{\kt}{\mathsf{T}}
+\newcommand{\qt}{\mathsf{Q}}
+
+\newcommand{\rkd}{{\cal Q}}
+\newcommand{\rkdconst}{{\cal Q}^{\mathsf{const}}}
+\newcommand{\kdmd}{\mathsf{kdmd}}
+\newcommand{\RKD}{\mathsf{RKD}}
+\newcommand{\rko}[1]{\mathsf{RK}^{#1}}
+\newcommand{\rkoo}[2]{\ensuremath{\mathsf{RK}^{#1}_{#2}}}
+
+\newcommand{\plusplus}{\raisebox{0.8pt}{\tiny++}}
+\newcommand{\FRKA}{F}
+\newcommand{\veca}{\mathbf{a}}
+\newcommand{\vecb}{\mathbf{b}}
+\newcommand{\vecc}{\mathbf{c}}
+\newcommand{\vecd}{\mathbf{d}}
+\newcommand{\vece}{\mathbf{e}}
+\newcommand{\vech}{\mathbf{h}}
+\newcommand{\vecg}{\mathbf{g}}
+\newcommand{\vecp}{\mathbf{p}}
+\newcommand{\vecr}{\mathbf{r}}
+\newcommand{\vecs}{\mathbf{s}}
+\newcommand{\vecv}{\mathbf{v}}
+\newcommand{\vecK}{\mathbf{K}}
+\newcommand{\vecw}{\mathbf{w}}
+\newcommand{\vecwo}{\overline{\mathbf{w}}}
+\newcommand{\vecy}{\mathbf{y}}
+\newcommand{\vecz}{\mathbf{z}}
+\newcommand{\vecx}{\mathbf{x}}
+\newcommand{\vecu}{\mathbf{u}}
+\newcommand{\matM}{\mathbf{A}}
+\newcommand{\matMM}{\mathbf{M}}
+\newcommand{\fp}{\vecw}
+\newcommand{\NR}{\mathrm{NR}}
+\newcommand{\LW}{\mathrm{LW}}
+\newcommand{\BBDY}{\mathrm{BBDY}}
+\newcommand{\blin}{\mathbf{e}}
+%\newcommand{\Ext}{\mathrm{Ext}}
+
+\newcommand{\QueryCode}[1]{\underline{\textrm{proc} $\procfont{ProcessQuery}$({#1})}}
+\newcommand{\NRs}{\NR^*}
+\newcommand{\ktadd}{\kt_+}
+
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\MtxL}{\mathrm{AL}}
+
+\newcommand{\hw}{\mathsf{hw}}
+\newcommand{\oneG}{\mathsf{1}_{\G}}
+\newcommand{\rka}{\mathbf{RKA}}
+\newcommand{\rkacf}{\mathbf{RKA}^*}
+% \newcommand{\Prim}[1]{\mathsf{#1}}
+%\newcommand{\Prim}[1]{\mathrm{#1}}
+\newcommand{\Prim}[1]{\mbox{#1}}
+% \newcommand{\Primm}[2]{\mathsf{#1}\mbox{-}\mathsf{#2}}
+%\newcommand{\Primm}[2]{\mathrm{#1}\mbox{-}\mathrm{#2}}
+\newcommand{\Primm}[2]{\mbox{#1-#2}}
+\newcommand{\constrkd}{\mathsf{Cnst}}
+\newcommand{\constf}{\Lambda}
+
+
+
+\newcommand{\B}{\{0,1\}}
+\newcommand{\oF}{\overline{F}}
+\newcommand{\PhiBC}{\Phi_{\mathrm{BC}}}
+\newcommand{\lang}[1]{\mathrm{#1}}
+\newcommand{\cclass}[1]{\mathbf{#1}}
+\newcommand{\Phiadd}{\Phi^{+}}
+\newcommand{\phiadd}[1]{\phi^{+}_{#1}}
+\newcommand{\Philin}{\Phi^{\mathrm{lin}}}
+\newcommand{\Phiaff}{\Phi^{\mathrm{aff}}}
+\newcommand{\Phipoly}[1]{\Phi^{\mathrm{poly}(#1)}}
+\newcommand{\phipoly}[1]{\phi^{\mathrm{poly}}_{#1}}
+\newcommand{\Phimult}{\Phi^{*}}
+\newcommand{\phimult}[1]{\phi^{*}_{#1}}
+\newcommand{\Phiconst}{\Phi^{c}}
+
+\newcommand{\phiaff}[1]{\phi^{\mathrm{aff}}_{#1}}
+\newcommand{\sidmap}{\mathrm{SI}}
+\newcommand{\pidmap}{\mathrm{PI}}
+\newcommand{\rkt}{\mathbf{IRT}}
+\newcommand{\setI}{I}
+\newcommand{\setInew}{\overline{\setI}}
+
+\newcommand{\dDBDH}{\ensuremath{q}\mbox{-EDBDH}}
+\newcommand{\ddbdh}{\ensuremath{q}\mbox{-}edbdh}
+\newcommand{\GdDBDH}{\gamefont{\dDBDH}}
+\newcommand{\achieved}{\checkmark}
+
+\newcommand{\GKEMRKA}{\gamefont{KEM}}
+\newcommand{\kemrkalabel}{{\notionfont{kem\mbox{-}rka}}}
+\newcommand{\AdvKEMRKA}[2]{\Adv^{\kemrkalabel}_{#1}(#2)}
+\newcommand{\GPKERKA}{\gamefont{PKE}}
+\newcommand{\pkerkalabel}{{\notionfont{pke\mbox{-}rka}}}
+\newcommand{\AdvPKERKA}[2]{\Adv^{\pkerkalabel}_{#1}(#2)}
+\newcommand{\CCAPKE}{CCA-PKE}
+\newcommand{\CPASE}{CPA-SE}
+\newcommand{\CCASE}{CCA-SE}
+\newcommand{\CCAKEM}{CCA-KEM}
+
+
+\newcommand{\IBEctxt}{c}
+\newcommand{\IBEmsgspace}{\mathcal{M}}
+\newcommand{\CSE}[1]{\schemefont{JES}[#1]}
+\newcommand{\CSEg}{\schemefont{JES}}
+\newcommand{\GPKECCASO}{\gamefont{IND}}
+\newcommand{\GSigDO}{\gamefont{SUF}}
+\newcommand{\pkesolabel}{{\notionfont{ind}}}
+\newcommand{\AdvPKESO}[2]{\Adv^{\pkesolabel}_{#1}(#2)}
+\newcommand{\sigdolabel}{{\notionfont{suf}}}
+\newcommand{\AdvSigDO}[2]{\Adv^{\sigdolabel}_{#1}(#2)}
+\newcommand{\sIBERKAlabel}{{\notionfont{sibe\mbox{-}rka}}}
+\newcommand{\AdvsIBERKA}[2]{\Adv^{\sIBERKAlabel}_{#1}(#2)}
+\newcommand{\owIBERKAlabel}{{\notionfont{owibe\mbox{-}rka}}}
+\newcommand{\AdvowIBERKA}[2]{\Adv^{\owIBERKAlabel}_{#1}(#2)}
+
+\newcommand{\GIBEs}{\gamefont{strIBE}}
+\newcommand{\ibesrkalabel}{{\notionfont{ibe-srka}}}
+\newcommand{\AdvIBEsRKA}[2]{\Adv^{\ibesrkalabel}_{#1}(#2)}
+\newcommand{\GPKEsRKA}{\gamefont{strPKE}}
+\newcommand{\pkesrkalabel}{{\notionfont{pke-srka}}}
+\newcommand{\AdvPKEsRKA}[2]{\Adv^{\pkesrkalabel}_{#1}(#2)}
+\newcommand{\GsIBEs}{\gamefont{strsIBE}}
+\newcommand{\sibesrkalabel}{{\notionfont{sibe-srka}}}
+\newcommand{\AdvsIBEsRKA}[2]{\Adv^{\sibesrkalabel}_{#1}(#2)}
+\newcommand{\SECCA}{CCA-SE}
+\newcommand{\GSE}{\gamefont{SE}}
+\newcommand{\serkalabel}{{\notionfont{se-rka}}}
+\newcommand{\AdvSERKA}[2]{\Adv^{\serkalabel}_{#1}(#2)}
+\newcommand{\GrAIBE}{\gamefont{rAIBE}}
+\newcommand{\raibelabel}{{\notionfont{raibe}}}
+\newcommand{\AdvrAIBE}[2]{\Adv^{\raibelabel}_{#1}(#2)}
+\newcommand{\GKDM}{\gamefont{KDM}}
+\newcommand{\kdmlabel}{{\notionfont{kdm}}}
+\newcommand{\AdvKDM}[2]{\Adv^{\kdmlabel}_{#1}(#2)}
+
+\ifnum\fullversion=1
+\newcommand{\pret}{\return}
+\else
+\newcommand{\pret}{\return}
+\fi
+\newcommand{\pif}{If }
+
+\newcommand{\crs}{\CRS}
+
+\newcommand{\finput}{w}
+\newcommand{\foutput}{x}
+\newcommand{\rinput}{x}
+\newcommand{\rwitness}{w}
+\newcommand{\rlabel}{\tau}
+\newcommand{\maxtime}{T}
+
+\newcommand{\APg}{\schemefont{APg}}
+\newcommand{\Ffam}{\schemefont{F}}
+\newcommand{\FTfam}{\schemefont{F}^{\maxtime}}
+\newcommand{\Rfam}{\schemefont{R}}
+\newcommand{\RFfam}{\schemefont{R}[\schemefont{F}]}
+\newcommand{\FTEv}{\schalg{\FTfam}{Ev}}
+\newcommand{\REv}{\schalg{R}{Ev}}
+\newcommand{\RFEv}{\schalg{\RFfam}{Ev}}
+\newcommand{\RGen}{\schalg{R}{Gen}}
+\newcommand{\RFGen}{\schalg{\RFfam}{Gen}}
+\newcommand{\FDom}{\schalg{F}{Dom}}
+\newcommand{\RDom}{\schalg{R}{WS}}
+\newcommand{\RFDom}{\schalg{\RFfam}{WS}}
+\newcommand{\RTS}{\schalg{R}{TS}}
+\newcommand{\RLang}{\schalg{R}{L}}
+\newcommand{\RFLang}{\schalg{\RFfam}{L}}
+\newcommand{\FRng}{\schalg{F}{Rng}}
+\newcommand{\FLbl}{\schalg{F}{Lbl}}
+\newcommand{\RLbl}{\schalg{R}{Lbl}}
+\newcommand{\FPg}{\schalg{F}{Pg}}
+\newcommand{\RPg}{\schalg{R}{Pg}}
+\newcommand{\RFPg}{\schalg{\RFfam}{Pg}}
+\newcommand{\kvs}{\mathbf{KvS}}
+\newcommand{\GP}{\mathrm{GP}}
+\newcommand{\qkd}{q_{\mathit{KD}}}
+\newcommand{\CRS}{\varfont{crs}}
+%\newcommand{\SIMtd}{\mathrm{std}}
+\newcommand{\SIMtd}{\varfont{std}}
+\newcommand{\SIMSIGxtd}{\varfont{xtd}}
+\newcommand{\SIMSIGstd}{\varfont{std}}
+%\newcommand{\EXTtd}{\mathrm{etd}}
+\newcommand{\EXTtd}{\varfont{xtd}}
+\newcommand{\NIZK}{\mathsf{\Pi}}
+\newcommand{\NIZKK}{\schalg{\Pi}{Pg}}
+\newcommand{\NIZKP}{\schalg{\Pi}{P}}
+\newcommand{\NIZKV}{\schalg{\Pi}{V}}
+\newcommand{\NIZKSim}{\schalg{\Pi}{SimP}}
+\newcommand{\NIZKPgSim}{\schalg{\Pi}{SimPg}}
+\newcommand{\NIZKExt}{\schalg{\Pi}{Ext}}
+\newcommand{\NIZKS}[2]{{\sf S}_{#1}(#2)}
+\newcommand{\NIZKE}[2]{{\sf E}_{#1}(#2)}
+\newcommand{\NIZKSE}[2]{{\sf SE}_{#1}(#2)}
+\newcommand{\GOWCCA}{\gamefont{OW\mbox{-}CCA}}
+\newcommand{\GINDCCA}{\gamefont{IND\mbox{-}CCA}}
+\newcommand{\owlabel}{{\notionfont{ow}}}
+\newcommand{\owccalabel}{{\notionfont{ow\mbox{-}cca}}}
+\newcommand{\indccalabel}{{\notionfont{ind\mbox{-}cca}}}
+\newcommand{\prlabel}{{\notionfont{pr}}}
+\newcommand{\AdvOW}[2]{\Adv^{\owlabel}_{#1}(#2)}
+\newcommand{\AdvOWCCA}[2]{\Adv^{\owccalabel}_{#1}(#2)}
+%\newcommand{\AdvINDCCA}[2]{\Adv^{\indccalabel}_{#1}(#2)}
+\newcommand{\AdvPR}[2]{\Adv^{\prlabel}_{#1}(#2)}
+\newcommand{\ZK}{\gamefont{ZK}}
+\newcommand{\OW}{\gamefont{OW}}
+\newcommand{\ZKSIG}{\gamefont{SIM}}
+\newcommand{\KR}{\gamefont{FOWCL}}
+\newcommand{\LES}{\gamefont{FUFCL}}
+\newcommand{\LEE}{\gamefont{FINDCL}}
+\newcommand{\XSIG}{\gamefont{EXT}}
+\newcommand{\RKASIG}{\gamefont{RKASIG}}
+\newcommand{\RKAOWF}{\gamefont{RKAOWF}}
+\newcommand{\KEi}{\gamefont{KEi}}
+\newcommand{\KEii}{\gamefont{KEii}}
+\newcommand{\SSE}{\gamefont{SE}}
+\newcommand{\wSSE}{\gamefont{wSSE}} %rename
+\newcommand{\procProve}{\procfont{Prove}}
+\newcommand{\pf}{\pi}
+\newcommand{\zk}{\notionfont{zk}}
+\newcommand{\simnotion}{\notionfont{sim}}
+
+\newcommand{\X}{\mathbb{X}}
+
+\newcommand{\Exec}{\notionfont{Exec}}
+
+\newcommand{\AdvKR}[2]{\Adv^{\mathrm{fow}\mbox{-}\mathrm{cl}}_{#1}(#2)}
+\newcommand{\AdvKES}[2]{\Adv^{\mathrm{fuf}\mbox{-}\mathrm{cl}}_{#1}(#2)}
+\newcommand{\AdvKEE}[2]{\Adv^{\mathrm{find}\mbox{-}\mathrm{cl}}_{#1}(#2)}
+
+\newcommand{\AdvZK}[2]{\Adv^{\zk}_{#1}(#2)}
+\newcommand{\AdvSim}[2]{\Adv^{\simnotion}_{#1}(#2)}
+\newcommand{\AdvExt}[2]{\Adv^{\ext}_{#1}(#2)}
+\newcommand{\kei}{\notionfont{ke\mbox{-}i}}
+\newcommand{\AdvKEi}[2]{\Adv^{\kei}_{#1}(#2)}
+\newcommand{\keii}{\notionfont{ke\mbox{-}ii}}
+\newcommand{\AdvKEii}[2]{\Adv^{\keii}_{#1}(#2)}
+\newcommand{\sse}{\notionfont{se}}
+\newcommand{\wsse}{\notionfont{wsse}} %rename
+\newcommand{\AdvSSE}[2]{\Adv^{\sse}_{#1}(#2)}
+\newcommand{\AdvwSSE}[2]{\Adv^{\wsse}_{#1}(#2)} %rename
+\newcommand{\SEEkg}{\mathit{SE}}
+\newcommand{\simext}{\mathit{SE}_1}
+
+\newcommand{\keycheck}{\mathsf{KeyCheck}}
+\newcommand{\simgen}{\mathsf{SimSetup}}
+\newcommand{\simsign}{\mathsf{SimSign}}
+
+\newcommand{\REL}{\mathsf{R}}
+\newcommand{\RELA}[1]{\mathsf{R}[#1]}
+\newcommand{\relg}{\mathsf{R}}
+\newcommand{\RELpg}{\schalg{R}{Pg}}
+\newcommand{\RELApg}[1]{\schalg{\RELA{#1}}{Pg}}
+\newcommand{\RELAVf}[1]{\schalg{\RELA{#1}}{Vf}}
+\newcommand{\RELAL}[1]{\schalg{\RELA{#1}}{L}}
+\newcommand{\RELVf}{\schalg{R}{Vf}}
+\newcommand{\RELL}{\schalg{R}{L}}
+
+\newcommand{\ilength}{\iota}
+\newcommand{\olength}{o}
+\newcommand{\secp}{k}
+\newcommand{\usecp}{1^{\lambda}}
+\newcommand{\NP}{\mathbf{NP}}
+
+\newcommand{\zksig}[2]{\mathsf{ZKSIG}{#1}[#2]}
+\newcommand{\GEUFCMA}{\gamefont{UF}}
+\newcommand{\eufcmalabel}{{\notionfont{uf}}}
+\newcommand{\AdvEUFCMA}[2]{\Adv^{\eufcmalabel}_{#1}(#2)}
+\newcommand{\DSMSp}{\mathcal{M}}
+\newcommand{\MSp}{\mathcal{M}}
+\newcommand{\KESMSp}{\mathcal{M}}
+\newcommand{\AdvUf}[2]{\Adv^{\notionfont{suf}}_{#1}(#2)}
+
+
+\newcommand{\procUp}{\procfont{Update}}
+\newcommand{\procBreak}{\procfont{BreakIn}}
+\newcommand{\fwsig}[2]{\mathsf{FWSIG}{#1}[#2]}
+\newcommand{\GFWEUFCMA}{\gamefont{FW\mbox{-}EUF\mbox{-}CMA}}
+\newcommand{\fweufcmalabel}{{\notionfont{fw\mbox{-}euf\mbox{-}cma}}}
+\newcommand{\AdvFWEUFCMA}[2]{\Adv^{\fweufcmalabel}_{#1}(#2)}
+
+
+\newcommand{\newgroup}{\mathbb{G}'}
+
+\newcommand{\w}{w}
+\newcommand{\GRKAEUFCMA}{\gamefont{RKA\mbox{-}EUF\mbox{-}CMA}}
+\newcommand{\rkaeufcmalabel}{{\notionfont{rka}}}
+\newcommand{\AdvRKAEUFCMA}[2]{\Adv^{\rkaeufcmalabel}_{#1}(#2)}
+\newcommand{\rkaowlabel}{{\notionfont{rka}}}
+\newcommand{\AdvRKAOW}[2]{\Adv^{\rkaowlabel}_{#1}(#2)}
+\newcommand{\rels}{\mathsf{S}}
+\newcommand{\rkahrlabel}{{\notionfont{rka\mbox{-}hr}}}
+\newcommand{\AdvRKAHR}[2]{\Adv^{\rkahrlabel}_{#1}(#2)}
+
+\newcommand{\KGnew}{\overline{\kg}}
+\newcommand{\PGnew}{\overline{\pg}}
+\newcommand{\Signnew}{\overline{\Sign}}
+\newcommand{\Vernew}{\overline{\Ver}}
+%\newcommand{\Encnew}{\overline{\Enc}}
+%\newcommand{\Decnew}{\overline{\Dec}}
+
+\newcommand{\PKEt}[1]{\schemefont{PKE'}[#1]}
+
+\newcommand{\Gpriv}{\gamefont{IND}}
+\newcommand{\Gunf}{\gamefont{SUF}}
+\newcommand{\Gaunf}{\gamefont{aSUF}}
+\newcommand{\procStore}{\procfont{Store}}
+\newcommand{\procStoreSim}{\procfont{StoreSim}}
+\newcommand{\procRetrieve}{\procfont{Retrieve}}
+\newcommand{\procRetrieveSim}{\procfont{RetrieveSim}}
+\newcommand{\kdmf}{\phi}
+\newcommand{\kdmset}{\Phi}
+
+\newcommand{\GSUFCMA}{\gamefont{SUF}}
+\newcommand{\sufcmalabel}{{\notionfont{suf}}}
+\newcommand{\AdvSUFCMA}[2]{\Adv^{\sufcmalabel}_{#1}(#2)}
+\newcommand{\ST}{\schemefont{ST}}
+\newcommand{\privlabel}{{\notionfont{ind}}}
+\newcommand{\AdvPriv}[2]{\Adv^{\privlabel}_{#1}(#2)}
+
+
+\newcommand{\CSEpg}{{\sf JES.Pg}}
+\newcommand{\CSEkg}{{\sf JES.Kg}}
+\newcommand{\CSEEnc}{{\sf JES.Enc}}
+\newcommand{\CSEDec}{{\sf JES.Dec}}
+\newcommand{\CSESign}{{\sf JES.Sig}}
+\newcommand{\CSEVer}{{\sf JES.Ver}}
+\newcommand{\cparams}{\varfont{jp}}
+\newcommand{\CSEMSp}{\DSMSp}
+
+\newcommand{\PKpg}{{\sf PKE.Pg}}
+\newcommand{\PKkg}{{\sf PKE.Kg}}
+\newcommand{\PKenc}{{\sf PKE.Enc}}
+\newcommand{\PKdec}{{\sf PKE.Dec}}
+\newcommand{\sigparams}{\ensuremath{pp_s}}
+\newcommand{\encparams}{\ensuremath{pp_e}}
+
+\newcommand{\stsetup}{{\sf ST.Pg}}
+\newcommand{\stkeygen}{{\sf ST.Kg}}
+\newcommand{\store}{\mathsf{ST.Store}}
+\newcommand{\retrieve}{\mathsf{ST.Retrieve}}
+\newcommand{\stverify}{{\sf ST.Verify}}
+
+\newcommand{\ciph}{c}
+
+\newcommand{\AES}{\mathrm{AES}}
+
+\newcommand{\bbgroup}{{\mathbb G}}
+\newcommand{\repG}{\langle\bbgroup\rangle}
+\newcommand{\phiM}[1]{\langle #1\rangle}
+
+\newcommand{\fullornot}[1]{\ifnum\llncs=1\cite{EPRINT:ourfull}\else  #1\fi}
+
+\newcommand{\KE}{{\sf KE}}
+\newcommand{\KEkg}{\schalg{\KE}{Kg}}
+\newcommand{\KEup}{\schalg{\KE}{Up}}
+\newcommand{\KET}{\schalg{\KE}{T}}
+\newcommand{\KEkl}{\schalg{\KE}{kl}}
+\newcommand{\KEVf}{\schalg{\KE}{Vf}}
+\newcommand{\ke}{{\sf KE}}
+\newcommand{\keU}{\schalg{\ke}{Up}}
+\newcommand{\keP}{\schalg{\ke}{Pg}}
+\newcommand{\stmt}{{\sf stmt}}
+\newcommand{\nibf}[1]{\noindent \textbf{#1}}
+\newcommand{\com}{{\sf com}}
+\newcommand{\dnote}[1]{\authnote{Dov}{#1}}
+\newcommand{\mnote}[1]{\authnote{Mihir}{#1}}
+
+
+\newcommand{\Red}{\mathbf{Reduce}}
+
+\newcommand{\MinRed}{\mathbf{MinReduce}}
+
+\newcommand{\HF}{\mathsf{H}}
+\newcommand{\FF}{\mathsf{F}}
+\newcommand{\GF}{\mathsf{GF}}
+\newcommand{\oGF}{\overline{\mathsf{G}}}
+
+\newcommand{\GPEv}{\schalg{G}{PEv}}
+\newcommand{\GPKg}{\schalg{G}{PKg}}
+
+\newcommand{\oGPEv}{\schalg{\oGF}{PEv}}
+\newcommand{\oGPKg}{\schalg{\oGF}{PKg}}
+
+
+\newcommand{\HKey}{\mathsl{hk}}
+\newcommand{\FKey}{\mathsl{fk}}
+\newcommand{\GKey}{\mathsl{gk}}
+\newcommand{\GPKey}{\GKey^*}
+
+\newcommand{\HEv}{\schalg{H}{Ev}}
+\newcommand{\FEv}{\schalg{F}{Ev}}
+\newcommand{\GEv}{\schalg{G}{Ev}}
+\newcommand{\oGEv}{\schalg{\oGF}{Ev}}
+
+\newcommand{\HKg}{\schalg{H}{Kg}}
+\newcommand{\FKg}{\schalg{F}{Kg}}
+\newcommand{\GKg}{\schalg{G}{Kg}}
+\newcommand{\oGKg}{\schalg{\oGF}{Kg}}
+
+\newcommand{\Hkl}{\schalg{H}{kl}}
+\newcommand{\Fkl}{\schalg{F}{kl}}
+\newcommand{\Gkl}{\schalg{G}{kl}}
+\newcommand{\oGkl}{\schalg{\oGF}{kl}}
+
+\newcommand{\HKeySp}{\bits^{\Hkl(\secParam)}}
+\newcommand{\FKeySp}{\bits^{\Fkl(\secParam)}}
+\newcommand{\GKeySp}{\bits^{\Gkl(\secParam)}}
+
+
+\newcommand{\Hil}{\schalg{H}{il}}
+\newcommand{\Fil}{\schalg{F}{il}}
+\newcommand{\Gil}{\schalg{G}{il}}
+\newcommand{\oGil}{\schalg{\oGF}{il}}
+\newcommand{\Nsl}{\schalg{NE}{sl}}
+\newcommand{\Nml}{\schalg{NE}{ml}}
+\newcommand{\Nnl}{\schalg{NE}{nl}}
+\newcommand{\Npkl}{\schalg{NE}{pkl}}
+
+
+\newcommand{\HInp}{\bits^{\Hil(\secParam)}}
+\newcommand{\FInp}{\bits^{\Fil(\secParam)}}
+\newcommand{\GInp}{\bits^{\Gil(\secParam)}}
+\newcommand{\oGInp}{\bits^{\oGil(\secParam)}}
+
+\newcommand{\Hol}{\schalg{H}{ol}}
+\newcommand{\Fol}{\schalg{F}{ol}}
+\newcommand{\Gol}{\schalg{G}{ol}}
+\newcommand{\oGol}{\schalg{\oGF}{ol}}
+
+
+\newcommand{\NEpkl}{\schalg{NE}{pkl}}
+\newcommand{\NEml}{\schalg{NE}{ml}}
+
+
+\newcommand{\HOut}{\bits^{\Hol(\secParam)}}
+\newcommand{\FOut}{\bits^{\Fol(\secParam)}}
+\newcommand{\GOut}{\bits^{\Gol(\secParam)}}
+\newcommand{\oGOut}{\bits^{\oGol(\secParam)}}
+
+\newcommand{\secParam}{\secp}
+
+\newcommand{\genAdv}[3]{\Adv^{\mathsf{#1}}_{#2,#3}}
+\newcommand{\owAdv}[2]{\Adv^{\mathsf{ow}}_{#1, #2}}
+\newcommand{\hcAdv}[2]{\Adv^{\mathsf{hc}}_{#1, #2}}
+\newcommand{\pprfAdv}[2]{\genAdv{pprf}{#1}{#2}}
+\newcommand{\diffAdv}[2]{\genAdv{diff}{#1}{#2}}
+\newcommand{\dioAdv}[2]{\genAdv{io}{#1}{#2}}
+
+\newcommand{\csamp}{{\cal S}}
+\newcommand{\circuit}{\mathrm{C}}
+\newcommand{\ocircuit}{\overline{\circuit}}
+\newcommand{\aux}{\mathit{aux}}
+\newcommand{\Obf}{\mathsf{Obf}}
+
+\newcommand{\hcGame}{\gamefont{HC}}
+\newcommand{\owGame}{\gamefont{OW}}
+\newcommand{\pprfGame}{\gamefont{PPRF}}
+\newcommand{\diffGame}{\gamefont{DIFF}}
+\newcommand{\dioGame}{\gamefont{IO}}
+
+\newcommand{\orPKey}{\procfont{PKEY}}
+\newcommand{\orCh}{\procfont{CH}}
+
+\newcommand{\Rsmp}{\mathsf{Rsmp}}
+\newcommand{\Coins}{\mathsf{Coins}}
+\newcommand{\ABNCoins}{\mathsf{NLECoins}}
+\newcommand{\ABNLTDFCoins}{\mathsf{NLTCoins}}
+\newcommand{\ABNLECoins}{\mathsf{NLECoins}}
+\newcommand{\leCoins}{\mathsf{LECoins}}
+\newcommand{\ConsCoins}{\mathsf{ConsistentCoins}}
+\newcommand{\Test}{\mathsf{Test}}
+\newcommand{\BR}{\mathsf{BR93}}
+\newcommand{\trap}{\mathsl{trap}}
+\newcommand{\LTDFil}{\schalg{LT}{il}}
+\newcommand{\ABNLTDFil}{\schalg{NLT}{il}}
+
+\newcommand{\leRl}{\schalg{LE}{rl}}
+\newcommand{\ABNleRl}{\schalg{NLE}{rl}}
+
+
+
+\newcommand{\deOneScheme}{\schemefont{DE1}}
+\newcommand{\DEoneKg}{\schalg{DE1}{Kg}}
+\newcommand{\DEoneEnc}{\schalg{DE1}{Enc}}
+\newcommand{\DEoneDec}{\schalg{DE1}{Dec}}
+\newcommand{\hk}{\mathsl{hk}}
+\newcommand{\HashO}{\mathsc{RO}}
+\newcommand{\param}{\mathsl{param}}
+\newcommand{\done}{\mathsl{done}}
+\newcommand{\gCPA}{\gamefont{INDCPA}}
+\newcommand{\LRO}{\mathsc{LR}}
+\newcommand{\cpaAdv}[2]{\Adv^{\mathrm{ind\mbox{-}cpa}}_{#1, #2}}
+\newcommand{\lk}{\mathsl{lk}}
+\newcommand{\pkk}{\overline{\pk}}
+\newcommand{\skk}{\overline{\sk}}
+\newcommand{\RErl}{\schalg{RE}{rl}}
+\newcommand{\CorO}{\mathsc{Cor}}
+\newcommand{\M}{{\cal M}}
+\newcommand{\relation}{{\cal R}}
+%\newcommand{\advAmsg}{A.\mathrm{msg}}
+\newcommand{\advApg}{A.\mathrm{pg}}
+\newcommand{\advAf}{A.\mathrm{f}}
+\newcommand{\advAg}{A.\mathrm{g}}
+\newcommand{\advAcor}{A.\mathrm{cor}}
+\newcommand{\HashOSim}{\mathsc{ROSim}}
+\newcommand{\coll}{\mathsl{coll}}
+
+\newcommand{\SimD}{\mathsc{Sim}}
+
+
+\newcommand{\AFrl}{\schalg{A.\mathrm{f}}{rl}}
+
+
+\newcommand{\advBmsg}{B.\mathrm{msg}}
+\newcommand{\advBpg}{B.\mathrm{pg}}
+\newcommand{\advBf}{B.\mathrm{f}}
+\newcommand{\advBg}{B.\mathrm{g}}
+\newcommand{\advBcor}{B.\mathrm{cor}}
+
+\newcommand{\advCmsg}{C.\mathrm{msg}}
+\newcommand{\advCpg}{C.\mathrm{pg}}
+\newcommand{\advCf}{C.\mathrm{f}}
+\newcommand{\advCg}{C.\mathrm{g}}
+\newcommand{\advCcor}{C.\mathrm{cor}}
+
+\newcommand{\advDmsg}{D.\mathrm{msg}}
+\newcommand{\advDpg}{D.\mathrm{pg}}
+\newcommand{\advDf}{D.\mathrm{f}}
+\newcommand{\advDg}{D.\mathrm{g}}
+\newcommand{\advDcor}{D.\mathrm{cor}}
+
+
+\newcommand{\HPKE}{\schemefont{HE}}
+\newcommand{\HEkg}{\schalg{HE}{Kg}}
+\newcommand{\HEenc}{\schalg{HE}{Enc}}
+\newcommand{\HEdec}{\schalg{HE}{Dec}}
+\newcommand{\Msampler}{\ensuremath{{\mathcal M}}}
+\newcommand{\len}{d}
+\newcommand{\dist}{\ensuremath{\mathcal D}}
+\newcommand{\rsmpAdv}[3]{\Adv^{\mathrm{resamp}}_{{#1}, {#2}, {#3}}}
+\newcommand{\gSample}{\mathsc{ReSamp}}
+\newcommand{\advClass}{\mathscr{A}}
+\newcommand{\RtD}{\schemefont{RtD}}
+\newcommand{\pkd}{\pk_{\mathrm{d}}}
+\newcommand{\pkr}{\pk_{\mathrm{r}}}
+\newcommand{\skd}{\sk_{\mathrm{d}}}
+\newcommand{\skr}{\sk_{\mathrm{r}}}
+\newcommand{\pkn}{\pk_{\mathrm{n}}}
+\newcommand{\skn}{\sk_{\mathrm{n}}}
+
+\newcommand{\bigI}{\mathcal{I}}
+
+
+%\newcommand{\Dom}{\mathsl{Dom}}
+
+
+\definecolor{grey}{rgb}{0.9,0.9,0.9}
+
+\newcommand{\twoColsNoDivide}[4]{
+\begin{center}
+        \framebox{
+        \begin{tabular}{c@{\hspace*{.4em}}c@{\hspace*{.4em}}c}
+        \begin{minipage}[t]{#1\textwidth}\setstretch{1.2}\gamesfontsize #3 \end{minipage}
+        &
+        \begin{minipage}[t]{#2\textwidth}\setstretch{1.2}\gamesfontsize #4 \end{minipage}
+        \end{tabular}
+        }
+\end{center}
+}
+
+\newcommand{\noskipheading}[1]{{\noindent{\sc{#1}}}}
+
+\newcommand{\twoColsNoBox}[2]{
+\begin{center}\begin{tabular}{c|c}
+\begin{minipage}[t]{1in}\begin{tabbing}
+12\=12\=12\=\kill
+#1
+\end{tabbing}\end{minipage} &
+\begin{minipage}[t]{1in}\begin{tabbing}
+12\=12\=12\=\kill
+#2
+\end{tabbing}\end{minipage} 
+\end{tabular}\end{center}}
+
+\newcommand{\Rsmpp}{\overline{\Rsmp}}
+
+\newcommand{\LPKE}[1]{\ensuremath{{#1}_\ell}}
+
+
+\newcommand{\twoColsNoBoxNoDivide}[2]{
+\begin{center}\begin{tabular}{ccc}
+\begin{minipage}[t]{1in}\begin{tabbing}
+12\=12\=12\=\kill
+#1
+\end{tabbing}\end{minipage} & \hspace{10pt} &
+\begin{minipage}[t]{1in}\begin{tabbing}
+12\=12\=12\=\kill
+#2
+\end{tabbing}\end{minipage} 
+\end{tabular}\end{center}}
+
+\newcommand{\HashOO}{\overline{\HashO}}
+
+
+
+\newcommand{\msgClass}{\mathscr{M}}
+\newcommand{\simClass}{\mathscr{S}}
+\newcommand{\pars}{\mathsl{pars}}
+\newcommand{\Msamplerr}{\overline{\Msampler}}
+\newcommand{\relationn}{\overline{\relation}}
+\newcommand{\Sim}{\overline{S}}
+\newcommand{\veccr}{\vecc_{\mathrm{r}}}
+\newcommand{\SIMCPAIK}{\ensuremath{\textrm{\$SIM-CPA-KI}}}
+\newcommand{\simcpaik}{\ensuremath{\textrm{\$sim-cpa-ki}}}
+\newcommand{\SIKCPAREAL}{\ensuremath{\textrm{\$SIM-CPA-KI-REAL}}}
+\newcommand{\SIKCPAIDEAL}{\ensuremath{\textrm{\$SIM-CPA-KI-IDEAL}}}
+\newcommand{\SIMCCAIK}{\ensuremath{\textrm{\$SIM-CCA-KI}}}
+\newcommand{\simccaik}{\ensuremath{\textrm{\$sim-cca-ki}}}
+\newcommand{\SIMCCAIKO}{\ensuremath{\textrm{\$SIM-CCA1-KI}}}
+\newcommand{\simccaiko}{\ensuremath{\textrm{\$sim-cca1-ki}}}
+\newcommand{\SIKCCAREAL}{\ensuremath{\textrm{\$SIM-CCA-KI-REAL}}}
+\newcommand{\SIKCCAIDEAL}{\ensuremath{\textrm{\$SIM-CCA-KI-IDEAL}}}
+\newcommand{\SIKCCAREALO}{\ensuremath{\textrm{\$SIM-CCA1-KI-REAL}}}
+\newcommand{\SIKCCAIDEALO}{\ensuremath{\textrm{\$SIM-CCA1-KI-IDEAL}}}
+\newcommand{\INDCPAIK}{\ensuremath{\textrm{\$IND-CPA-KI}}}
+\newcommand{\indcpaik}{\ensuremath{\textrm{\$ind-cpa-ki}}}
+\newcommand{\INDCCAIK}{\ensuremath{\textrm{\$IND-CCA-KI}}}
+\newcommand{\indccaik}{\ensuremath{\textrm{\$ind-cca-ki}}}
+\newcommand{\INDCCAIKO}{\ensuremath{\textrm{\$IND-CCA1-KI}}}
+\newcommand{\indccaiko}{\ensuremath{\textrm{\$ind-cca1-ki}}}
+\newcommand{\INDIKLEFT}{\ensuremath{\textrm{\$IND-CPA-KI-RIGHT}}}
+\newcommand{\INDIKRIGHT}{\ensuremath{\textrm{\$IND-CPA-KI-LEFT}}}
+\newcommand{\NSOACCA}{\ensuremath{\textrm{N-SO-CCA}}}
+\newcommand{\NSOAIND}{\ensuremath{\textrm{N-SO-CPA}}}
+\newcommand{\nsoa}{\ensuremath{\textrm{n-so-cca}}}
+\newcommand{\CSSSOA}{\ensuremath{\textrm{D-SO-CPA}}}
+\newcommand{\csssoa}{\ensuremath{\textrm{d-so-cpa}}}
+\newcommand{\INDSOA}{\ensuremath{\textrm{IND-SO-CPA}}}
+\newcommand{\indsoa}{\ensuremath{\textrm{ind-so-cpa}}}
+\newcommand{\CSSCCA}{\ensuremath{\textrm{D-SO-CCA}}}
+\newcommand{\csscca}{\ensuremath{\textrm{d-so-cca}}}
+\newcommand{\CSSCCAREAL}{\ensuremath{\textrm{D-CCA-REAL}}}
+\newcommand{\CSSCCAIDEAL}{\ensuremath{\textrm{D-CCA-IDEAL}}}
+\newcommand{\CSSCPAREAL}{\ensuremath{\textrm{D-CPA1-REAL}}}
+\newcommand{\CSSCPAIDEAL}{\ensuremath{\textrm{D-CPA1-IDEAL}}}
+\newcommand{\CSSCPAREALL}{\ensuremath{\textrm{D-CPA2-REAL}}}
+\newcommand{\CSSCPAIDEALL}{\ensuremath{\textrm{D-CPA2-IDEAL}}}
+\newcommand{\Bad}{\mathsf{Bad}}
+\newcommand{\INDSOACCA}{\ensuremath{\textrm{IND-SO-CCA}}}
+\newcommand{\indsoacca}{\ensuremath{\textrm{ind-so-cca}}}
+\newcommand{\ccaAdv}[2]{\Adv^{\mathrm{ind\mbox{-}cca}}_{#1, #2}}
+\newcommand{\HCCAC}{\ensuremath{\textrm{H-SO-CCA-C}}}
+\newcommand{\HCPAM}{\ensuremath{\textrm{H-SO-CPA-M}}}
+\newcommand{\HCPAC}{\ensuremath{\textrm{H-SO-CPA-C}}}
+\newcommand{\SIMSOA}{\ensuremath{\textrm{SIM-SO-CPA}}}
+\newcommand{\SIMCCA}{\ensuremath{\textrm{SIM-SO-CCA}}}
+\newcommand{\simsoa}{\ensuremath{\textrm{sim-so-cpa}}}
+\newcommand{\simcca}{\ensuremath{\textrm{sim-so-cca}}}
+\newcommand{\hcpac}{\ensuremath{\textrm{h-so-cpa-c}}}
+\newcommand{\hcpam}{\ensuremath{\textrm{h-so-cpa-m}}}
+\newcommand{\hccac}{\ensuremath{\textrm{h-so-cca-c}}}
+\newcommand{\NCPA}{\ensuremath{\textrm{N-SO-CPA}}}
+\newcommand{\NCCA}{\ensuremath{\textrm{N-SO-CCA}}}
+\newcommand{\NIND}{\ensuremath{\textrm{N-SO-CPA}}}
+\newcommand{\NSIM}{\ensuremath{\textrm{N-SIM-SO-CPA}}}
+\newcommand{\CCR}{\ensuremath{\textrm{CCR}}}
+\newcommand{\HCCACREAL}{\ensuremath{\textrm{H-CCA-C-REAL}}}
+\newcommand{\HCPACREAL}{\ensuremath{\textrm{H-CPA-C-REAL}}}
+\newcommand{\HCPAMREAL}{\ensuremath{\textrm{H-CPA-M-REAL}}}
+\newcommand{\HCCACIDEAL}{\ensuremath{\textrm{H-CCA-C-IDEAL}}}
+\newcommand{\HCPACIDEAL}{\ensuremath{\textrm{H-CPA-C-IDEAL}}}
+\newcommand{\HCPAMIDEAL}{\ensuremath{\textrm{H-CPA-M-IDEAL}}}
+\newcommand{\SIMIDEAL}{\ensuremath{\textrm{SIM-CPA-IDEAL}}}
+\newcommand{\SIMREAL}{\ensuremath{\textrm{SIM-CPA-REAL}}}
+\newcommand{\SIMCCAIDEAL}{\ensuremath{\textrm{SIM-CCA-IDEAL}}}
+\newcommand{\SIMCCAREAL}{\ensuremath{\textrm{SIM-CCA-REAL}}}
+\newcommand{\PARO}{\ensuremath{\textrm{PA-RO}}}
+\newcommand{\EOWF}{\ensuremath{\textrm{EOWF}}}
+\newcommand{\OWF}{\ensuremath{\textrm{OWF}}}
+\newcommand{\upkeScheme}{\mathsf{UE}}
+\newcommand{\upkeKg}{\upkeScheme.\mathsf{Kg}}
+\newcommand{\upkeEnc}{\upkeScheme.\mathsf{Enc}}
+\newcommand{\upkeDec}{\upkeScheme.\mathsf{Dec}}
+\newcommand{\upkeRl}{\upkeScheme.\mathsf{rl}}
+\newcommand{\UETransform}{\mathsf{UniqueCtx}}
+\newcommand{\DecSimO}{\mathsc{DecSim}}
+
+\newcommand{\NSIMREAL}{\ensuremath{\textrm{N-SIM-REAL}}}
+\newcommand{\NSIMIDEAL}{\ensuremath{\textrm{N-SIM-IDEAL}}}
+\newcommand{\nsimsoa}{\ensuremath{\textrm{n-sim-so-cpa}}}
+\newcommand{\ccr}{\ensuremath{\textrm{ccr}}}
+
+
+
+\newcommand{\deTwoScheme}{\schemefont{DE2}}
+\newcommand{\DETwoKg}{\schalg{DE2}{Kg}}
+\newcommand{\DETwoEnc}{\schalg{DE2}{Enc}}
+\newcommand{\DETwoDec}{\schalg{DE2}{Dec}}
+\newcommand{\Range}{\mathsf{Range}}
+
+\newcommand{\DPRG}{\ensuremath{\textrm{PRG-DIST}}}
+\newcommand{\dprg}{{\notionfont{dist}}}
+
+
+\newcommand{\HCF}{\ensuremath{\textrm{HCF-DIST}}}
+\newcommand{\hcf}{{\notionfont{hcf}}}
+
+\newcommand{\PHCF}{\ensuremath{\textrm{PHCF-DIST}}}
+\newcommand{\phcf}{{\notionfont{phcf}}}
+
+\newcommand{\NMR}{\ensuremath{\textrm{XNM-REAL}}}
+\newcommand{\NMI}{\ensuremath{\textrm{XNM-IDEAL}}}
+\newcommand{\nmf}{{\notionfont{xor\mbox{-}nm}}}
+\newcommand{\XORNM}{\ensuremath{\textrm{XOR-NM}}}
+
+\newcommand{\XORIND}{\ensuremath{\textrm{XOR-IND}}}
+\newcommand{\xind}{{\notionfont{xor\mbox{-}ind}}}
+
+\newcommand{\tclear}{\mathsf{t\mbox{-}clear}}
+\newcommand{\sclear}{\mathsf{s\mbox{-}clear}}
+
+
+
+
+
+\newcommand{\PRGREAL}{\ensuremath{\textrm{PRG-REAL}}}
+\newcommand{\PRGRAND}{\ensuremath{\textrm{PRG-RAND}}}
+
+\newcommand{\PHCFREAL}{\ensuremath{\textrm{PHCF-REAL}}}
+\newcommand{\PHCFRAND}{\ensuremath{\textrm{PHCF-RAND}}}
+
+
+
+\newcommand{\EOWFAUX}{\ensuremath{\textrm{EOWF-AUX}}}
+
+
+
+\input{dovCommands}
+
+
+\newcommand{\ResampProc}{\mathsf{Resamp}}
+\newcommand{\secIn}{1^k}
+\newcommand{\advSrc}{S}
+\newcommand{\advMain}{D}
+\newcommand{\gUCEReal}{\gamefont{Real}}
+\newcommand{\gUCERand}{\gamefont{Rand}}
+\newcommand{\gUCEone}{\gamefont{UCE}}
+\newcommand{\gPred}{\gamefont{Pred}}
+\newcommand{\UCEoracle}{\mathsc{Hash}}
+\newcommand{\advUnpred}{P}
+\newcommand{\Guess}{\mathrm{Guess}}
+\newcommand{\uce}{\mathrm{uce}}
+\newcommand{\pred}{\mathrm{pred}}
+
+\newcommand{\reOneScheme}{\schemefont{RE1}}
+\newcommand{\REbad}{\schemefont{RE}_{\schemefont{bad}}}
+\newcommand{\REbadKg}{\REbad.\schemefont{Kg}}
+\newcommand{\REbadEnc}{\REbad.\schemefont{Enc}}
+\newcommand{\REbadDec}{\REbad.\schemefont{Dec}}
+\newcommand{\REbadRl}{\REbad.\schemefont{rl}}
+\newcommand{\mask}{R}
+\newcommand{\vecR}{\mathbf{R}}
+\newcommand{\pad}{\mathsl{pad}}
+
+\newcommand{\NGen}{\mathsf{NG}}
+\newcommand{\Nonces}{\mathcal{N}}
+
+\newcommand{\npars}{\sigma}
+\newcommand{\NPred}{\gamefont{RP}}
+\newcommand{\GenO}{\mathsc{Gen}}
+%\newcommand{\EncO}{\mathsc{Enc}}
+\newcommand{\HO}{\mathsc{H}}
+\newcommand{\npred}{\mathrm{rp}}
+\newcommand{\neScheme}{\schemefont{NE}}
+\newcommand{\neVf}{\schemefont{NE.Vf}}
+\newcommand{\neKg}{\neScheme.\schemefont{Kg}}
+\newcommand{\neEnc}{\neScheme.\schemefont{Enc}}
+\newcommand{\neDec}{\neScheme.\schemefont{Dec}}
+\newcommand{\neSg}{\neScheme.\schemefont{Sg}}
+\newcommand{\xk}{\varfont{xk}}
+\newcommand{\vecxk}{\boldsymbol{xk}}
+\newcommand{\vecN}{\boldsymbol{N}}
+\newcommand{\vecStt}{\boldsymbol{st}}
+\newcommand{\vecS}{\boldsymbol{S}}
+\newcommand{\neNl}{\neScheme.\schemefont{nl}}
+\newcommand{\seeds}{\boldsymbol{xk}}
+\newcommand{\OpenO}{\mathsc{Open}}
+\newcommand{\usr}{U}
+\newcommand{\nind}{\ensuremath{\textrm{n-so-cpa}}}
+\newcommand{\ncca}{\ensuremath{\textrm{n-so-cca}}}
+\newcommand{\col}{\mathrm{cr}}
+\newcommand{\GColl}{\mathrm{CR}}
+\newcommand{\vecnpars}{\boldsymbol{\sigma}}
+\newcommand{\encode}[1]{\langle #1 \rangle}
+\newcommand{\neOneScheme}{\mathsf{NE1}}
+\newcommand{\neOneKg}{\neOneScheme.\schemefont{Kg}}
+\newcommand{\neOneEnc}{\neOneScheme.\schemefont{Enc}}
+\newcommand{\neOneDec}{\neOneScheme.\schemefont{Dec}}
+\newcommand{\neOneSg}{\neOneScheme.\schemefont{Sg}}
+\newcommand{\neTwoScheme}{\mathsf{NE2}}
+\newcommand{\neTwoKg}{\neTwoScheme.\schemefont{Kg}}
+\newcommand{\neTwoEnc}{\neTwoScheme.\schemefont{Enc}}
+\newcommand{\neTwoDec}{\neTwoScheme.\schemefont{Dec}}
+\newcommand{\neTwoSg}{\neTwoScheme.\schemefont{Sg}}
+
+
+\newcommand{\HNCCA}{\ensuremath{\textrm{HN-SO-CCA}}}
+\newcommand{\HNCPA}{\ensuremath{\textrm{HN-SO-CPA}}}
+\newcommand{\hncpa}{\ensuremath{\textrm{hn-so-cpa}}}
+\newcommand{\hncca}{\ensuremath{\textrm{hn-so-cca}}}
+\newcommand{\HNCPAREAL}{\ensuremath{\textrm{HN-CPA-REAL}}}
+\newcommand{\HNCCAREAL}{\ensuremath{\textrm{HN-CCA-REAL}}}
+\newcommand{\HNCPAIDEAL}{\ensuremath{\textrm{HN-CPA-IDEAL}}}
+\newcommand{\HNCCAIDEAL}{\ensuremath{\textrm{HN-CCA-IDEAL}}}
+
+\newcommand{\neThreeScheme}{\mathsf{NE1}}
+\newcommand{\neThreeKg}{\neThreeScheme.\schemefont{Kg}}
+\newcommand{\neThreeEnc}{\neThreeScheme.\schemefont{Enc}}
+\newcommand{\neThreeDec}{\neThreeScheme.\schemefont{Dec}}
+\newcommand{\neThreeSg}{\neThreeScheme.\schemefont{Sg}}
+\newcommand{\neFourScheme}{\mathsf{NE2}}
+\newcommand{\neFourKg}{\neFourScheme.\schemefont{Kg}}
+\newcommand{\neFourEnc}{\neFourScheme.\schemefont{Enc}}
+\newcommand{\neFourDec}{\neFourScheme.\schemefont{Dec}}
+\newcommand{\neFourSg}{\neFourScheme.\schemefont{Sg}}
+
+\newcommand{\neBadScheme}{\mathsf{NE_{bad}}}
+\newcommand{\neBadKg}{\neBadScheme.\schemefont{Kg}}
+\newcommand{\neBadEnc}{\neBadScheme.\schemefont{Enc}}
+\newcommand{\neBadDec}{\neBadScheme.\schemefont{Dec}}
+\newcommand{\neBadSg}{\neBadScheme.\schemefont{Sg}}
+
+\newcommand{\NtD}{\mathsf{NtD}}
+
+\newcommand{\neeScheme}{\mathsf{\overline{NE}}}
+\newcommand{\neeKg}{\neeScheme.\schemefont{Kg}}
+\newcommand{\neeEnc}{\neeScheme.\schemefont{Enc}}
+\newcommand{\neeDec}{\neeScheme.\schemefont{Dec}}
+\newcommand{\neeSg}{\neeScheme.\schemefont{Sg}}
+
+\newcommand{\Hbar}{\overline{H}}
+\newcommand{\advAbar}{\overline{\advA}}
+\newcommand{\veccbar}{\overline{\vecc}}
+
+
+\newcommand{\deThreeScheme}{\schemefont{DE3}}
+\newcommand{\DEthreeKg}{\schalg{DE3}{Kg}}
+\newcommand{\DEthreeEnc}{\schalg{DE3}{Enc}}
+\newcommand{\DEthreeDec}{\schalg{DE3}{Dec}}
+\newcommand{\func}{\delta}
+\newcommand{\idfunc}{\mathsl{id}}
+\newcommand{\xxx}{\mathrm{xxx}}
+\newcommand{\neGuess}{\neScheme.\schemefont{Guess}}
+\newcommand{\funcc}{\overline{\func}}
+
+
+\newcommand{\clear}{\mathsf{\zeta\mbox{-}clear}}
+
+\newcommand{\padOAEP}{
+\psset{arrowsize=0.2}
+\begin{psmatrix}[colsep=0.5cm,rowsep=0.1cm]
+% &\textrm{OAEP}\psspan{3}\\[2ex]
+&m \in\{0,1\}^\ms & & r \in \{0,1\}^\rs\\[-1.5ex]
+&[name=m]&&[name=r]&\\[1.0ex]
+&[name=p1]\oplus&[name=H1]\psframebox{G}&[name=x1]\\[1.0ex]
+&[name=x2]&[name=H2]\psframebox{H}&[name=p2]\oplus\\[1.0ex]
+&[name=s]&&[name=t]\\[-1.5ex]
+&s&&t
+\end{psmatrix}
+\ncline{->}{m}{s}
+\ncline{->}{r}{t}
+\ncline{-}{p1}{H1}
+\ncline{-}{x1}{H1}
+\ncline{-}{p2}{H2}
+\ncline{-}{x2}{H2}
+}
+
+
+\newcommand{\padOAEPb}{
+\psset{arrowsize=0.2}
+\begin{psmatrix}[colsep=0.5cm,rowsep=0.1cm]
+&m  & &  \\[-1.5ex]
+&[name=m]&&[name=r]&\\[1.0ex]
+&[name=p1]\oplus&[name=H1]\psframebox{G}&[name=x1]\\[1.0ex]
+&[name=x2]&[name=H2]\psframebox{H}&[name=p2]\oplus\\[1.0ex]
+&[name=s]&&[name=t]\\[-1.5ex]
+&s\in\{0,1\}^\ms &&t \in \{0,1\}^\rs
+\end{psmatrix}
+\ncline{<-}{m}{s}
+\ncline{-}{x1}{t}
+\ncline{-}{p1}{H1}
+\ncline{-}{x1}{H1}
+\ncline{-}{p2}{H2}
+\ncline{-}{x2}{H2}
+}
+
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main-full"
+%%% End: 
